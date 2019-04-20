@@ -1,8 +1,0 @@
-"0","ASX_Lower <- filter(ASX_Ticker_Summary, Maximum < quantile(Maximum, 2/3))"
-"0","  "
-"0","nrow(ASX_Lower)"
-"1","[1]"
-"1"," 1339"
-"1","
-"
-"0","ASX_Long_Lower <- filter(ASX_Long, ASX_Ticker %in% ASX_Lower$ASX_Ticker)"
