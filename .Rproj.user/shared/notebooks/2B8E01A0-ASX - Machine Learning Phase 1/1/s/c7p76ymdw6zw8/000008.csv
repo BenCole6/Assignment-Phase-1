@@ -1,0 +1,2 @@
+"0","kable_styling(kable(sample_n(ASX_Data_Frame, size=20)),"
+"0","              bootstrap_options = ""striped"", full_width = F)"
