@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<script src="lib/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="lib/bootstrap-3.3.5/css/simplex.min.css" rel="stylesheet" />
+<script src="lib/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="lib/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="lib/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="lib/kePrint-0.0.1/kePrint.js"></script>
+
+</head>
+<body style="background-color:white;">
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> ASX_Ticker </th>
+   <th style="text-align:right;"> Date </th>
+   <th style="text-align:right;"> Open </th>
+   <th style="text-align:right;"> High </th>
+   <th style="text-align:right;"> Low </th>
+   <th style="text-align:right;"> Close </th>
+   <th style="text-align:right;"> Volume </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> SAS </td>
+   <td style="text-align:right;"> 20190116 </td>
+   <td style="text-align:right;"> 0.055 </td>
+   <td style="text-align:right;"> 0.055 </td>
+   <td style="text-align:right;"> 0.053 </td>
+   <td style="text-align:right;"> 0.054 </td>
+   <td style="text-align:right;"> 1762579 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 1AG </td>
+   <td style="text-align:right;"> 20190111 </td>
+   <td style="text-align:right;"> 0.031 </td>
+   <td style="text-align:right;"> 0.032 </td>
+   <td style="text-align:right;"> 0.031 </td>
+   <td style="text-align:right;"> 0.031 </td>
+   <td style="text-align:right;"> 719145 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> NCK </td>
+   <td style="text-align:right;"> 20190123 </td>
+   <td style="text-align:right;"> 5.120 </td>
+   <td style="text-align:right;"> 5.290 </td>
+   <td style="text-align:right;"> 5.070 </td>
+   <td style="text-align:right;"> 5.210 </td>
+   <td style="text-align:right;"> 66230 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SRG </td>
+   <td style="text-align:right;"> 20190114 </td>
+   <td style="text-align:right;"> 0.485 </td>
+   <td style="text-align:right;"> 0.490 </td>
+   <td style="text-align:right;"> 0.475 </td>
+   <td style="text-align:right;"> 0.485 </td>
+   <td style="text-align:right;"> 82779 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> RUL </td>
+   <td style="text-align:right;"> 20190306 </td>
+   <td style="text-align:right;"> 0.570 </td>
+   <td style="text-align:right;"> 0.590 </td>
+   <td style="text-align:right;"> 0.570 </td>
+   <td style="text-align:right;"> 0.585 </td>
+   <td style="text-align:right;"> 26483 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> VHY </td>
+   <td style="text-align:right;"> 20190122 </td>
+   <td style="text-align:right;"> 54.240 </td>
+   <td style="text-align:right;"> 54.240 </td>
+   <td style="text-align:right;"> 53.750 </td>
+   <td style="text-align:right;"> 53.870 </td>
+   <td style="text-align:right;"> 15176 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> MAU </td>
+   <td style="text-align:right;"> 20190108 </td>
+   <td style="text-align:right;"> 0.190 </td>
+   <td style="text-align:right;"> 0.195 </td>
+   <td style="text-align:right;"> 0.190 </td>
+   <td style="text-align:right;"> 0.195 </td>
+   <td style="text-align:right;"> 73224 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> PIC </td>
+   <td style="text-align:right;"> 20190111 </td>
+   <td style="text-align:right;"> 1.065 </td>
+   <td style="text-align:right;"> 1.065 </td>
+   <td style="text-align:right;"> 1.045 </td>
+   <td style="text-align:right;"> 1.045 </td>
+   <td style="text-align:right;"> 175927 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> VAE </td>
+   <td style="text-align:right;"> 20190110 </td>
+   <td style="text-align:right;"> 60.510 </td>
+   <td style="text-align:right;"> 60.900 </td>
+   <td style="text-align:right;"> 60.220 </td>
+   <td style="text-align:right;"> 60.440 </td>
+   <td style="text-align:right;"> 2179 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> GTK </td>
+   <td style="text-align:right;"> 20190114 </td>
+   <td style="text-align:right;"> 4.840 </td>
+   <td style="text-align:right;"> 4.900 </td>
+   <td style="text-align:right;"> 4.840 </td>
+   <td style="text-align:right;"> 4.860 </td>
+   <td style="text-align:right;"> 12193 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> RMP </td>
+   <td style="text-align:right;"> 20190104 </td>
+   <td style="text-align:right;"> 0.056 </td>
+   <td style="text-align:right;"> 0.056 </td>
+   <td style="text-align:right;"> 0.052 </td>
+   <td style="text-align:right;"> 0.052 </td>
+   <td style="text-align:right;"> 1400486 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> MEI </td>
+   <td style="text-align:right;"> 20190110 </td>
+   <td style="text-align:right;"> 0.010 </td>
+   <td style="text-align:right;"> 0.011 </td>
+   <td style="text-align:right;"> 0.010 </td>
+   <td style="text-align:right;"> 0.011 </td>
+   <td style="text-align:right;"> 613343 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> ARG </td>
+   <td style="text-align:right;"> 20190104 </td>
+   <td style="text-align:right;"> 7.600 </td>
+   <td style="text-align:right;"> 7.670 </td>
+   <td style="text-align:right;"> 7.600 </td>
+   <td style="text-align:right;"> 7.630 </td>
+   <td style="text-align:right;"> 77395 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> VMY </td>
+   <td style="text-align:right;"> 20190117 </td>
+   <td style="text-align:right;"> 0.049 </td>
+   <td style="text-align:right;"> 0.049 </td>
+   <td style="text-align:right;"> 0.049 </td>
+   <td style="text-align:right;"> 0.049 </td>
+   <td style="text-align:right;"> 142268 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> IXU </td>
+   <td style="text-align:right;"> 20190110 </td>
+   <td style="text-align:right;"> 0.115 </td>
+   <td style="text-align:right;"> 0.115 </td>
+   <td style="text-align:right;"> 0.115 </td>
+   <td style="text-align:right;"> 0.115 </td>
+   <td style="text-align:right;"> 8483 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> DCN </td>
+   <td style="text-align:right;"> 20190116 </td>
+   <td style="text-align:right;"> 2.520 </td>
+   <td style="text-align:right;"> 2.520 </td>
+   <td style="text-align:right;"> 2.430 </td>
+   <td style="text-align:right;"> 2.450 </td>
+   <td style="text-align:right;"> 118145 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> BYE </td>
+   <td style="text-align:right;"> 20190108 </td>
+   <td style="text-align:right;"> 0.205 </td>
+   <td style="text-align:right;"> 0.220 </td>
+   <td style="text-align:right;"> 0.205 </td>
+   <td style="text-align:right;"> 0.215 </td>
+   <td style="text-align:right;"> 255385 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> CDY </td>
+   <td style="text-align:right;"> 20190307 </td>
+   <td style="text-align:right;"> 0.250 </td>
+   <td style="text-align:right;"> 0.260 </td>
+   <td style="text-align:right;"> 0.250 </td>
+   <td style="text-align:right;"> 0.260 </td>
+   <td style="text-align:right;"> 35000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SHM </td>
+   <td style="text-align:right;"> 20190115 </td>
+   <td style="text-align:right;"> 0.570 </td>
+   <td style="text-align:right;"> 0.570 </td>
+   <td style="text-align:right;"> 0.560 </td>
+   <td style="text-align:right;"> 0.570 </td>
+   <td style="text-align:right;"> 24753 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> TAH </td>
+   <td style="text-align:right;"> 20190104 </td>
+   <td style="text-align:right;"> 4.190 </td>
+   <td style="text-align:right;"> 4.265 </td>
+   <td style="text-align:right;"> 4.160 </td>
+   <td style="text-align:right;"> 4.240 </td>
+   <td style="text-align:right;"> 3253207 </td>
+  </tr>
+</tbody>
+</table>
+</body>
+</html>

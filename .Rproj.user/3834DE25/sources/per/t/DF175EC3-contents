@@ -1,27 +1,73 @@
 ---
-title: "ASX - Machine Learning"
+title: "Closing Prices of Australian Stock Exchange Shares"
+subtitle: |
+          | MATH2319 - Machine Learning
+          | Course Project
 author: "Ben Cole - s3412349"
 date: "Print Date: `r format(Sys.Date(), '%d/%m/%Y')`"
-output: html_document
+output:
+  pdf_document:
+    toc: true
+    toc_depth: 3
+    number_sections: true
+    latex_engine: xelatex
+fontsize: 12pt
+mainfont: Arial Nova
+geometry: margin=15mm
 ---
 
-# **Phase 1 - Introduction and Cleaning**
+\newpage
+
+# **Phase 1 - Introduction, Cleaning, and Exploration**
+
 
 ## Outline
 
-The aim of this supervised machine learning project is to predict the prices of 50 different Australian Stock Exchange (ASX) shares in the year 2019. Data beginning at the 2019 calendar year through to April 2019 was used in the training and testing data sets. 
+The aim of this supervised machine learning project is to predict the volume of shares sold of a large number of Australian Stock Exchange (ASX) shares in the year 2019. This phase covers the collection, cleaning, and inspection of the data. Data beginning at the 2019 calendar year through to April 2019 was sourced to use in the training and validation data set. Data will be sourced for dates after the last date in the training and validation data set for following phases of this project.    
+
+The dataset for the share prices was in a tidy and long format, with ASX ticker code, date, several price variables, and selling volume each in a separate column. A second data table was scraped from the internet that contained Global Industry Classification Standard industry groupings. This was joined to the first data set to add further categorical information.    
+
+The data was found to be heavily right-skewed for all price variables. The data was filtered to remove ASX tickers with extremely high prices, which focussed the dataset on shares that sold for under $1.00.
 
 ### Nature of the Data
 
+#### Pricing data
+
 The data used was historical summary data of all shares available with a trading history in the ASX between 02/01/2019 through to business week (Mon - Fri) ending 12/04/2019. The data was provided by the website [ASX Historical Data](!"https://www.asxhistoricaldata.com/"). The data was compressed into .zip files separated by calendar month between 02/01/2019 - 31/01/2019 and then by business week from 01/02/2019 - 12/04/2019. The raw data followed the same structure throughout all text files, and was not provided with headers. Each comma separated value followed the following headers:
 
-* Ticker - the three-digit unique identifier ASX ticker code (renamed to `ASX_Ticker`)
-* Date - date of trade information
-* Open - price per individual share at the beginning of the day's trade
-* High - highest price recorded per individual share during the day's trade
-* Low - lowest price recorded per individual share during the day's trade
-* Close - price per individual share at the end of the day's trade
-* Volume - number of shares traded during the day
+* `Ticker` - the three-digit unique identifier ASX ticker code (renamed to `ASX_Ticker`)
+* `Date` - date of trade information
+* `Open` - price per individual share at the beginning of the day's trade
+* `High` - highest price recorded per individual share during the day's trade
+* `Low` - lowest price recorded per individual share during the day's trade
+* `Close` - price per individual share at the end of the day's trade
+* `Volume` - number of shares traded during the day
+
+#### Global Industry Classification Standards Data
+
+A second data table was scraped from the [ASX website on GICS](!"https://www.asx.com.au/products/gics.htm"), which was spread across [several pages](!"https://www.asx.com.au/asx/research/listedCompanies.do"). This contained the company name, ASX Ticker code, and GICS Industry group. Company name was not valuable to the model and discarded, wilst GICS industry group was retained. ASX Ticker code was used to join the two data frames.
+
+\newpage
+
+### Target Feature
+
+The target feature selected was Volume, which is expressed only as positive integers; natural numbers.
+
+### Descriptive Features
+
+Excepting `Date`[^1], All other remaining variables in the data frame were used as descriptive features:
+
+* `Ticker` - unique identifier, alphanumeric code
+* `Open` - continuous positive double
+* `High` - continuous positive double
+* `Low` - continuous positive double
+* `Close` - continuous positive double
+* `Volume` - continuous positive integer
+* `GICS_Industry_Group` - character factor variable
+
+[^1]: Date was only retained as a means to further partition training/validation data and test data. It was not used as a descriptive feature.
+
+\newpage
 
 ## Data Processing
 
@@ -45,6 +91,7 @@ suppressMessages(p_load(character.only = T,
                           "kableExtra", ## add ons for knitr tables
                           "scales",     ## quick and easy formatting prettynums
                           "e1071",      ## for skew and kurtosis
+                          "Hmisc",      ## correlation
                           "janitor")))  ## cleaning colnames
 
 ```
@@ -54,7 +101,8 @@ suppressMessages(p_load(character.only = T,
 
 The data was read making use of a nested for loop for the files that were separated by week. Just a single for loop was required for the data that was collated into January 2019.
 
-```{r, message=FALSE, warning=FALSE}
+
+```{r, message=FALSE, warning=FALSE, tidy=TRUE, background='#edfffd'}
 
 ##TODO: figure out why this is returning multiple observations for the same ASX_Ticker on the same day
 
@@ -62,7 +110,9 @@ Jan_file <- list.files(pattern = "jan")
 
 unzip(Jan_file)
 
-Jan_File_no_zip <- list.files(pattern = "jan")[!str_detect(list.files(pattern = "jan"), ".zip")]
+Jan_File_no_zip <- list.files(pattern = "jan")[!str_detect(
+                                                  list.files(pattern = "jan"),
+                                                    ".zip")]
 
 ASX_Data_Week_Jan <- list()
 
@@ -136,10 +186,14 @@ ASX_Data_Frame <- rbind(ASX_Data_Frame_Jan,
                         ASX_Data_Frame_Post_Jan)
 
 kable_styling(kable(head(ASX_Data_Frame, 20)),
-              bootstrap_options = "striped", full_width = F)
+              latex_options = c("striped", "hold_position"),
+              position = "left",
+              full_width = F)
 
 kable_styling(kable(sample_n(ASX_Data_Frame, size=20)),
-              bootstrap_options = "striped", full_width = F)
+              latex_options = c("striped", "hold_position"),
+              position = "left",
+              full_width = F)
 
 # rm(ASX_Data_List, ASX_Data_List_Temp)
 
@@ -147,9 +201,11 @@ ASX_Data_Frame <- distinct(ASX_Data_Frame)
 
 ```
 
+\newpage
+
 ### Data - Global Industry Classification Standard
 
-The sales data of ASX shares were enriched by adding [Global Industry Classification Standard  (GICS)](!"https://www.asx.com.au/products/gics.htm") information as well. A new table was scraped from [several webpages](!"https://www.asx.com.au/asx/research/listedCompanies.do") containing all companies listed on the ASX.
+The sales data of ASX shares were enriched by adding Global Industry Classification Standard  (GICS) information as well. A new table was scraped containing all companies listed on the ASX.
 
 ```{r, message=FALSE, warning=FALSE}
 
@@ -157,12 +213,14 @@ ASX_Html_Pages <- list()
 
 for (i in 1:length(letters)) {
   
-  ASX_Html_Pages[[i]] <- paste0("https://www.asx.com.au/asx/research/listedCompanies.do?coName=",
+  ASX_Html_Pages[[i]] <- paste0(
+    "https://www.asx.com.au/asx/research/listedCompanies.do?coName=",
                                 toupper(letters[i]))
   
 }
 
-ASX_Html_Pages[length(ASX_Html_Pages)+1] <- "https://www.asx.com.au/asx/research/listedCompanies.do?coName=0-9"
+ASX_Html_Pages[length(ASX_Html_Pages)+1] <-
+  "https://www.asx.com.au/asx/research/listedCompanies.do?coName=0-9"
 
 ASX_Html_Read_list <- list()
 
@@ -185,11 +243,18 @@ ASX_Industry_Table <- do.call(rbind, ASX_Html_Read_list)
 
 ASX_Industry_Table <- clean_names(ASX_Industry_Table, "parsed")
 
+ASX_Industry_Table <- select(ASX_Industry_Table,
+                             -Company_name)
+
 kable_styling(kable(head(ASX_Industry_Table, 20)),
-              bootstrap_options = "striped", full_width = F)
+              latex_options = c("striped", "hold_position"),
+              position = "left",
+              full_width = F)
 
 kable_styling(kable(sample_n(ASX_Industry_Table, size = 20)),
-              bootstrap_options = "striped", full_width = F)
+              latex_options = c("striped", "hold_position"),
+              position = "left",
+              full_width = F)
 
 ASX_Data_Frame <- left_join(x = ASX_Data_Frame,
                             y = ASX_Industry_Table,
@@ -212,8 +277,8 @@ ASX_Summary <- summarise(group_by(ASX_Long,
                                   Variable),
                          "n ASX_Tickers" = comma(length(unique(ASX_Ticker))),
                          "n Observations" = comma(n()),
-                         "Min Date" = format(ymd(min(Date)), "%d/%m/%Y"),
-                         "Max Date" = format(ymd(max(Date)), "%d/%m/%Y"),
+                         "Min Date" = format(ymd(min(Date)), "%d-%m-%Y"),
+                         "Max Date" = format(ymd(max(Date)), "%d-%m-%Y"),
                          "Minimum" = comma(min(Value)),
                          "Q1" = comma(quantile(Value, 0.25)),
                          "Median" = comma(quantile(Value, 0.5)),
@@ -225,15 +290,15 @@ ASX_Summary <- summarise(group_by(ASX_Long,
                          "Kurtosis" = round(kurtosis(Value), 2),
                          "NA count" = comma(sum(is.na(ASX_Data_Frame))))
 
-kable_styling(kable(ASX_Summary),
-              full_width = T,
-              bootstrap_options = c("striped"),
-              position = "float_left")
+kable_styling(kable(t(ASX_Summary)),
+              full_width = F,
+              latex_options = c("striped", "hold_position"),
+              position = "left")
 
 ```
 
 
-### Plots
+### Density Plots
 
 Plotting the spread of the variables only further outlines the extremity of the skew. As such, it makes sense to trim upper extreme outliers from the data set.
 
@@ -243,7 +308,7 @@ ggplot(ASX_Long) +
   geom_density(aes(x=Value)) +
   scale_x_continuous(labels=comma) +
   facet_rep_wrap(~Variable, repeat.tick.labels = T,
-                 scales = "free", nrow = 2) +
+                 scales = "free", ncol = 2) +
   ggtitle("Univariate Density Plots of each Variable") +
   theme_minimal()
 
@@ -274,7 +339,8 @@ ASX_Ticker_Summary <- summarise(group_by(ASX_Data_Frame, ASX_Ticker),
   
 
 kable_styling(kable(sample_n(ASX_Ticker_Summary, 20)),
-              bootstrap_options = c("striped"),
+              latex_options = c("striped", "hold_position"),
+              position = "left",
               full_width = F)
 
 ASX_Lower <- filter(ASX_Ticker_Summary, Maximum < quantile(Maximum, 2/3))
@@ -285,6 +351,10 @@ ASX_Long_Lower <- filter(ASX_Long, ASX_Ticker %in% ASX_Lower$ASX_Ticker)
 
 ASX_Data_Lower <- filter(ASX_Data_Frame, ASX_Ticker %in% ASX_Lower$ASX_Ticker)
 
+kable_styling(kable(sample_n(ASX_Data_Lower, 20)),
+              latex_options = c("striped", "hold_position"),
+              position = "left",
+              full_width = F)
 
 ```
 
@@ -310,12 +380,14 @@ ASX_Summary_Lower <- summarise(group_by(ASX_Long_Lower,
                                "Kurtosis" = round(kurtosis(Value), 2),
                                "NA count" = comma(sum(is.na(ASX_Data_Frame))))
 
-kable_styling(kable(ASX_Summary_Lower),
-              bootstrap_options = c("striped"),
-              position = "float_left",
+kable_styling(kable(t(ASX_Summary_Lower)),
+              latex_options = c("striped", "hold_position"),
+              position = "left",
               full_width = F)
 
 ```
+
+\newpage
 
 ## Data Exploration and Visualisation
 
@@ -345,7 +417,7 @@ ggplot(ASX_Data_Samples) +
                                 "Close"="red3")) +
   ggtitle("Sales History of 20 Shares from 02-01-2019 to 12-04-2019") +
   facet_rep_wrap(~ASX_Ticker, repeat.tick.labels = T,
-                 scales = "free_y") +
+                 scales = "free_y", ncol = 4) +
   theme_minimal() +
   theme(text = element_text(size = 12))
 
@@ -354,30 +426,46 @@ ggplot(ASX_Data_Samples) +
 
 ```{r, fig.width=12, fig.height=10, message=FALSE, warning=FALSE}
 
-recode(ASX_Data_Lower$GICS_industry_group, "Not Applic"="NA")
+ASX_Data_Lower$GICS_industry_group <- recode(ASX_Data_Lower$GICS_industry_group, "Not Applic"="NA")
 
-fill_grad <- seq_gradient_pal("blue3",
-                              "cyan")(seq(0,1,
-                                                length.out = length(
-                                                  unique(ASX_Data_Lower$GICS_industry_group))-1))
+fill_grad <-
+  seq_gradient_pal("blue3",
+                   "cyan")(seq(0,1,
+                               length.out = length(
+                                 unique(ASX_Data_Lower$GICS_industry_group))-1))
 
-ggplot(ASX_Data_Lower, aes(x = fct_infreq(GICS_industry_group),
-                           fill = fct_infreq(GICS_industry_group),
-                           alpha = 0.75)) +
-  geom_bar(show.legend = F) +
+ASX_Data_Count <- summarise(group_by(ASX_Data_Lower,
+                                     GICS_industry_group),
+                            "Count" = n())
+
+ggplot(ASX_Data_Lower, aes(x = fct_rev(fct_infreq(GICS_industry_group)),
+                           fill = fct_infreq(GICS_industry_group))) +
+  geom_bar(show.legend = F, alpha = 0.75) +
+  geom_text(data = filter(ASX_Data_Count,
+                          GICS_industry_group != "Materials"),
+            aes(x = GICS_industry_group,
+                y = Count,
+                label = comma(Count)),
+            hjust = -0.1) +
+    geom_text(data = filter(ASX_Data_Count,
+                          GICS_industry_group == "Materials"),
+            aes(x = GICS_industry_group,
+                y = Count,
+                label = comma(Count)),
+            hjust = 1.25, col="white") +
   ggtitle("Frequencies of each GICS Industry Type") +
   scale_y_continuous(breaks = seq(0,30000, 2500),
-                     limits = c(0,NA),
+                     limits = c(0,max(ASX_Data_Count$Count)*1.075),
                      expand = c(0,0),
                      labels = comma,
                      "Number of ASX_Tickers") +
   scale_x_discrete("GICS Industry Group Type") +
   scale_fill_manual(values = c(fill_grad, "grey60")) +
   theme_minimal() +
-  theme(panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
+  coord_flip() +
+  theme(panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
         panel.grid.minor.y = element_blank(),
-        axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.25),
         text = element_text(size = 12),
         panel.border = element_blank())
 
