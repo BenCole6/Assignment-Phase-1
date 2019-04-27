@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<script src="lib/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="lib/bootstrap-3.3.5/css/simplex.min.css" rel="stylesheet" />
+<script src="lib/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="lib/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="lib/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="lib/kePrint-0.0.1/kePrint.js"></script>
+
+</head>
+<body style="background-color:white;">
+<table class="table" style="font-size: 10px; width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> ASX_Ticker </th>
+   <th style="text-align:right;"> Median </th>
+   <th style="text-align:right;"> Q3 </th>
+   <th style="text-align:right;"> 90th Percentile </th>
+   <th style="text-align:right;"> 95th Percentile </th>
+   <th style="text-align:right;"> Maximum </th>
+   <th style="text-align:right;"> Skew </th>
+   <th style="text-align:right;"> Kurtosis </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> SEQ </td>
+   <td style="text-align:right;"> 0.26 </td>
+   <td style="text-align:right;"> 0.28 </td>
+   <td style="text-align:right;"> 0.3 </td>
+   <td style="text-align:right;"> 0.3 </td>
+   <td style="text-align:right;"> 0.31 </td>
+   <td style="text-align:right;"> 0.136 </td>
+   <td style="text-align:right;"> -0.93 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> EGD </td>
+   <td style="text-align:right;"> 1.95 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 2.02 </td>
+   <td style="text-align:right;"> 2.03 </td>
+   <td style="text-align:right;"> 2.05 </td>
+   <td style="text-align:right;"> -0.290 </td>
+   <td style="text-align:right;"> -1.05 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> NOV </td>
+   <td style="text-align:right;"> 0.23 </td>
+   <td style="text-align:right;"> 0.26 </td>
+   <td style="text-align:right;"> 0.28 </td>
+   <td style="text-align:right;"> 0.28 </td>
+   <td style="text-align:right;"> 0.29 </td>
+   <td style="text-align:right;"> -0.123 </td>
+   <td style="text-align:right;"> -1.27 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> WBC </td>
+   <td style="text-align:right;"> 26.32 </td>
+   <td style="text-align:right;"> 26.78 </td>
+   <td style="text-align:right;"> 27.14 </td>
+   <td style="text-align:right;"> 27.24 </td>
+   <td style="text-align:right;"> 27.47 </td>
+   <td style="text-align:right;"> -0.461 </td>
+   <td style="text-align:right;"> -0.32 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> BXN </td>
+   <td style="text-align:right;"> 0.02 </td>
+   <td style="text-align:right;"> 0.03 </td>
+   <td style="text-align:right;"> 0.03 </td>
+   <td style="text-align:right;"> 0.03 </td>
+   <td style="text-align:right;"> 0.03 </td>
+   <td style="text-align:right;"> 1.129 </td>
+   <td style="text-align:right;"> 0.38 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> PPS </td>
+   <td style="text-align:right;"> 0.62 </td>
+   <td style="text-align:right;"> 0.7 </td>
+   <td style="text-align:right;"> 0.73 </td>
+   <td style="text-align:right;"> 0.74 </td>
+   <td style="text-align:right;"> 0.79 </td>
+   <td style="text-align:right;"> -0.307 </td>
+   <td style="text-align:right;"> -0.30 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> IJH </td>
+   <td style="text-align:right;"> 266.36 </td>
+   <td style="text-align:right;"> 270.36 </td>
+   <td style="text-align:right;"> 271.56 </td>
+   <td style="text-align:right;"> 273.26 </td>
+   <td style="text-align:right;"> 274.59 </td>
+   <td style="text-align:right;"> -0.865 </td>
+   <td style="text-align:right;"> -0.57 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> IRE </td>
+   <td style="text-align:right;"> 12.56 </td>
+   <td style="text-align:right;"> 13.13 </td>
+   <td style="text-align:right;"> 13.33 </td>
+   <td style="text-align:right;"> 13.41 </td>
+   <td style="text-align:right;"> 13.76 </td>
+   <td style="text-align:right;"> -0.282 </td>
+   <td style="text-align:right;"> -1.16 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> GVF </td>
+   <td style="text-align:right;"> 1.04 </td>
+   <td style="text-align:right;"> 1.05 </td>
+   <td style="text-align:right;"> 1.06 </td>
+   <td style="text-align:right;"> 1.06 </td>
+   <td style="text-align:right;"> 1.07 </td>
+   <td style="text-align:right;"> -0.920 </td>
+   <td style="text-align:right;"> 0.31 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> ESE </td>
+   <td style="text-align:right;"> 0.03 </td>
+   <td style="text-align:right;"> 0.03 </td>
+   <td style="text-align:right;"> 0.03 </td>
+   <td style="text-align:right;"> 0.03 </td>
+   <td style="text-align:right;"> 0.04 </td>
+   <td style="text-align:right;"> 1.200 </td>
+   <td style="text-align:right;"> 4.73 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> HTA </td>
+   <td style="text-align:right;"> 0.13 </td>
+   <td style="text-align:right;"> 0.14 </td>
+   <td style="text-align:right;"> 0.14 </td>
+   <td style="text-align:right;"> 0.14 </td>
+   <td style="text-align:right;"> 0.15 </td>
+   <td style="text-align:right;"> -0.150 </td>
+   <td style="text-align:right;"> -1.16 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> ESK </td>
+   <td style="text-align:right;"> 0.26 </td>
+   <td style="text-align:right;"> 0.27 </td>
+   <td style="text-align:right;"> 0.29 </td>
+   <td style="text-align:right;"> 0.29 </td>
+   <td style="text-align:right;"> 0.3 </td>
+   <td style="text-align:right;"> -0.178 </td>
+   <td style="text-align:right;"> -0.70 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> IMD </td>
+   <td style="text-align:right;"> 1.13 </td>
+   <td style="text-align:right;"> 1.19 </td>
+   <td style="text-align:right;"> 1.23 </td>
+   <td style="text-align:right;"> 1.25 </td>
+   <td style="text-align:right;"> 1.29 </td>
+   <td style="text-align:right;"> -0.145 </td>
+   <td style="text-align:right;"> -0.81 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> NOX </td>
+   <td style="text-align:right;"> 0.42 </td>
+   <td style="text-align:right;"> 0.44 </td>
+   <td style="text-align:right;"> 0.45 </td>
+   <td style="text-align:right;"> 0.46 </td>
+   <td style="text-align:right;"> 0.46 </td>
+   <td style="text-align:right;"> 0.107 </td>
+   <td style="text-align:right;"> -0.52 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> IDZ </td>
+   <td style="text-align:right;"> 0.02 </td>
+   <td style="text-align:right;"> 0.03 </td>
+   <td style="text-align:right;"> 0.04 </td>
+   <td style="text-align:right;"> 0.04 </td>
+   <td style="text-align:right;"> 0.05 </td>
+   <td style="text-align:right;"> 1.152 </td>
+   <td style="text-align:right;"> 0.25 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> PM1 </td>
+   <td style="text-align:right;"> 0.02 </td>
+   <td style="text-align:right;"> 0.02 </td>
+   <td style="text-align:right;"> 0.02 </td>
+   <td style="text-align:right;"> 0.02 </td>
+   <td style="text-align:right;"> 0.02 </td>
+   <td style="text-align:right;"> 0.939 </td>
+   <td style="text-align:right;"> -0.20 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> TGP </td>
+   <td style="text-align:right;"> 1.03 </td>
+   <td style="text-align:right;"> 1.04 </td>
+   <td style="text-align:right;"> 1.04 </td>
+   <td style="text-align:right;"> 1.05 </td>
+   <td style="text-align:right;"> 1.06 </td>
+   <td style="text-align:right;"> -0.951 </td>
+   <td style="text-align:right;"> 0.02 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> TCN </td>
+   <td style="text-align:right;"> 0.04 </td>
+   <td style="text-align:right;"> 0.04 </td>
+   <td style="text-align:right;"> 0.04 </td>
+   <td style="text-align:right;"> 0.04 </td>
+   <td style="text-align:right;"> 0.04 </td>
+   <td style="text-align:right;"> -2.014 </td>
+   <td style="text-align:right;"> 3.19 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AD8 </td>
+   <td style="text-align:right;"> 4.97 </td>
+   <td style="text-align:right;"> 5.71 </td>
+   <td style="text-align:right;"> 6.12 </td>
+   <td style="text-align:right;"> 6.22 </td>
+   <td style="text-align:right;"> 6.59 </td>
+   <td style="text-align:right;"> 0.135 </td>
+   <td style="text-align:right;"> -1.57 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> OMN </td>
+   <td style="text-align:right;"> 0.66 </td>
+   <td style="text-align:right;"> 0.7 </td>
+   <td style="text-align:right;"> 0.72 </td>
+   <td style="text-align:right;"> 0.79 </td>
+   <td style="text-align:right;"> 0.8 </td>
+   <td style="text-align:right;"> 0.699 </td>
+   <td style="text-align:right;"> 0.18 </td>
+  </tr>
+</tbody>
+</table>
+</body>
+</html>

@@ -11,8 +11,8 @@ output:
     toc_depth: 3
     number_sections: true
     latex_engine: xelatex
-fontsize: 12pt
 mainfont: Arial Nova
+fontsize: 12pt
 geometry: margin=15mm
 ---
 
@@ -27,13 +27,13 @@ The aim of this supervised machine learning project is to predict the volume of 
 
 The dataset for the share prices was in a tidy and long format, with ASX ticker code, date, several price variables, and selling volume each in a separate column. A second data table was scraped from the internet that contained Global Industry Classification Standard industry groupings. This was joined to the first data set to add further categorical information.    
 
-The data was found to be heavily right-skewed for all price variables. The data was filtered to remove ASX tickers with extremely high prices, which focussed the dataset on shares that sold for under $1.00.
+The data was found to be heavily right-skewed for all price variables. The data was filtered to remove ASX tickers with extremely high prices and with extremely high sales volumes. After filtering, the data was visualised to show that it was less skewed for all continuous descriptive features. GICS Industry Group, the only categorical descriptive feature, was also shown to be less skewed after filtering as well as somewhat similarly distributed between GICS groups.
 
 ### Nature of the Data
 
 #### Pricing data
 
-The data used was historical summary data of all shares available with a trading history in the ASX between 02/01/2019 through to business week (Mon - Fri) ending 12/04/2019. The data was provided by the website [ASX Historical Data](!"https://www.asxhistoricaldata.com/"). The data was compressed into .zip files separated by calendar month between 02/01/2019 - 31/01/2019 and then by business week from 01/02/2019 - 12/04/2019. The raw data followed the same structure throughout all text files, and was not provided with headers. Each comma separated value followed the following headers:
+The data used was historical summary data of all shares available with a trading history in the ASX between 02/01/2019 through to business week (Mon - Fri) ending 12/04/2019. The data was provided by the website [**ASX Historical Data**](!"https://www.asxhistoricaldata.com/"). The data was compressed into .zip files separated by calendar month between 02/01/2019 - 31/01/2019 and then by business week from 01/02/2019 - 12/04/2019. The raw data followed the same structure throughout all text files, and was not provided with headers. Each comma separated value followed the following headers:
 
 * `Ticker` - the three-digit unique identifier ASX ticker code (renamed to `ASX_Ticker`)
 * `Date` - date of trade information
@@ -43,15 +43,17 @@ The data used was historical summary data of all shares available with a trading
 * `Close` - price per individual share at the end of the day's trade
 * `Volume` - number of shares traded during the day
 
+The above variable names are stated on the ASX Historical Data website.
+
 #### Global Industry Classification Standards Data
 
-A second data table was scraped from the [ASX website on GICS](!"https://www.asx.com.au/products/gics.htm"), which was spread across [several pages](!"https://www.asx.com.au/asx/research/listedCompanies.do"). This contained the company name, ASX Ticker code, and GICS Industry group. Company name was not valuable to the model and discarded, wilst GICS industry group was retained. ASX Ticker code was used to join the two data frames.
+A second data table was scraped from the [**ASX website on GICS**](!"https://www.asx.com.au/products/gics.htm"), which was spread across [**several pages**](!"https://www.asx.com.au/asx/research/listedCompanies.do"). This contained the company name, ASX Ticker code, and GICS Industry group. Company name was not valuable to the model and discarded, wilst GICS industry group was retained. ASX Ticker code was used to join the two data frames.
 
 \newpage
 
 ### Target Feature
 
-The target feature selected was Volume, which is expressed only as positive integers; natural numbers.
+The target feature selected was `Volume`, which is expressed only as positive integers; natural numbers.
 
 ### Descriptive Features
 
@@ -73,8 +75,9 @@ Excepting `Date`[^1], All other remaining variables in the data frame were used 
 
 ### Packages
 
-The following packages were used, with brief descriptions of their uses as comments.
-
+The following packages were used, with brief descriptions of their uses as comments.  
+  
+  
 ```{r, message=FALSE, warning=FALSE}
 
 library(pacman)                         ## for loading multiple packages
@@ -91,7 +94,6 @@ suppressMessages(p_load(character.only = T,
                           "kableExtra", ## add ons for knitr tables
                           "scales",     ## quick and easy formatting prettynums
                           "e1071",      ## for skew and kurtosis
-                          "Hmisc",      ## correlation
                           "janitor")))  ## cleaning colnames
 
 ```
@@ -99,20 +101,19 @@ suppressMessages(p_load(character.only = T,
 
 ### Data - Price History
 
-The data was read making use of a nested for loop for the files that were separated by week. Just a single for loop was required for the data that was collated into January 2019.
-
-
-```{r, message=FALSE, warning=FALSE, tidy=TRUE, background='#edfffd'}
-
-##TODO: figure out why this is returning multiple observations for the same ASX_Ticker on the same day
+The data was read making use of a nested for loop for the files that were separated by week. Just a single for loop was required for the data that was collated into the file January 2019.    
+  
+  
+  
+```{r, message=FALSE, warning=FALSE, tidy=TRUE}
 
 Jan_file <- list.files(pattern = "jan")
 
 unzip(Jan_file)
 
 Jan_File_no_zip <- list.files(pattern = "jan")[!str_detect(
-                                                  list.files(pattern = "jan"),
-                                                    ".zip")]
+  list.files(pattern = "jan"),
+  ".zip")]
 
 ASX_Data_Week_Jan <- list()
 
@@ -121,14 +122,14 @@ ASX_Data_Month_Jan <- list()
 for (k in 1:length(list.files(Jan_File_no_zip))) {
   
   ASX_Data_Week_Jan[[k]] <- read_csv( file.path(Jan_File_no_zip,
-                                                   list.files(Jan_File_no_zip)[k]),
-                                           col_names = c("ASX_Ticker",
-                                                         "Date",
-                                                         "Open",
-                                                         "High",
-                                                         "Low",
-                                                         "Close",
-                                                         "Volume") )
+                                                list.files(Jan_File_no_zip)[k]),
+                                      col_names = c("ASX_Ticker",
+                                                    "Date",
+                                                    "Open",
+                                                    "High",
+                                                    "Low",
+                                                    "Close",
+                                                    "Volume") )
   
   ASX_Data_Month_Jan[[k]] <- do.call(rbind, ASX_Data_Week_Jan)
   
@@ -163,7 +164,7 @@ for (i in 1:length(Week_files_no_zip)){
   for (j in 1:length(list.files(path=Week_files_no_zip[i]))){
     
     ASX_Data_List_Week[[j]] <- read_csv(file.path(Week_files_no_zip[i],
-                                               list.files(Week_files_no_zip[i])[j]),
+                                                  list.files(Week_files_no_zip[i])[j]),
                                         col_names=c("ASX_Ticker",
                                                     "Date",
                                                     "Open",
@@ -185,19 +186,15 @@ ASX_Data_Frame_Post_Jan <- do.call(rbind, ASX_Data_List)
 ASX_Data_Frame <- rbind(ASX_Data_Frame_Jan,
                         ASX_Data_Frame_Post_Jan)
 
-kable_styling(kable(head(ASX_Data_Frame, 20)),
+kable_styling(kable(sample_n(ASX_Data_Frame, size=20),
+                    align = "rrrrrrrll"),
               latex_options = c("striped", "hold_position"),
-              position = "left",
+              position = "center",
               full_width = F)
 
-kable_styling(kable(sample_n(ASX_Data_Frame, size=20)),
-              latex_options = c("striped", "hold_position"),
-              position = "left",
-              full_width = F)
-
-# rm(ASX_Data_List, ASX_Data_List_Temp)
-
-ASX_Data_Frame <- distinct(ASX_Data_Frame)
+ASX_Data_Frame <- distinct(ASX_Data_Frame, 
+                           ASX_Ticker, Date,
+                           .keep_all = T)
 
 ```
 
@@ -205,8 +202,9 @@ ASX_Data_Frame <- distinct(ASX_Data_Frame)
 
 ### Data - Global Industry Classification Standard
 
-The sales data of ASX shares were enriched by adding Global Industry Classification Standard  (GICS) information as well. A new table was scraped containing all companies listed on the ASX.
-
+The sales data of ASX shares were enriched by adding Global Industry Classification Standard  (GICS) information as well. A new table was scraped containing all companies listed on the ASX.  
+  
+  
 ```{r, message=FALSE, warning=FALSE}
 
 ASX_Html_Pages <- list()
@@ -215,7 +213,7 @@ for (i in 1:length(letters)) {
   
   ASX_Html_Pages[[i]] <- paste0(
     "https://www.asx.com.au/asx/research/listedCompanies.do?coName=",
-                                toupper(letters[i]))
+    toupper(letters[i]))
   
 }
 
@@ -246,14 +244,9 @@ ASX_Industry_Table <- clean_names(ASX_Industry_Table, "parsed")
 ASX_Industry_Table <- select(ASX_Industry_Table,
                              -Company_name)
 
-kable_styling(kable(head(ASX_Industry_Table, 20)),
-              latex_options = c("striped", "hold_position"),
-              position = "left",
-              full_width = F)
-
 kable_styling(kable(sample_n(ASX_Industry_Table, size = 20)),
               latex_options = c("striped", "hold_position"),
-              position = "left",
+              position = "center",
               full_width = F)
 
 ASX_Data_Frame <- left_join(x = ASX_Data_Frame,
@@ -262,10 +255,29 @@ ASX_Data_Frame <- left_join(x = ASX_Data_Frame,
 
 ```
 
+
+### Removing Company Name
+
+As each `ASX_ticker` is individually linked to a single `Company_name`, `Company_name` clearly does not provide any extra information to the data set and so was removed.    
+  
+  
+```{r}
+
+ASX_Data_Frame$Company_name <- NULL
+
+kable_styling(kable(sample_n(ASX_Data_Frame, 20),
+                    align = "lrrrrrrl"),
+              latex_options = c("striped", "hold_position"),
+              position = "center",
+              full_width = F)
+
+```
+
 ### Descriptive Statistics
 
-The data set was incredibly right-skewed, as outlined by the summary table below of each variable. However, all the price variables (Close, High, Low, Open) appeared to have similar measures of skew, kurtosis, and IQR.
-
+The data set was heavily right-skewed, as outlined by the summary table below of each pricing feature. However, all the price features (`Close`, `High`, `Low`, `Open`) appeared to have similar measures of skew, kurtosis, and IQR.  
+  
+  
 ```{r, message=FALSE, warning=FALSE}
 
 ASX_Long <- gather(ASX_Data_Frame,
@@ -279,87 +291,202 @@ ASX_Summary <- summarise(group_by(ASX_Long,
                          "n Observations" = comma(n()),
                          "Min Date" = format(ymd(min(Date)), "%d-%m-%Y"),
                          "Max Date" = format(ymd(max(Date)), "%d-%m-%Y"),
-                         "Minimum" = comma(min(Value)),
-                         "Q1" = comma(quantile(Value, 0.25)),
-                         "Median" = comma(quantile(Value, 0.5)),
-                         "Q3" = comma(quantile(Value, 0.75)),
-                         "90th Percentile" = comma(quantile(Value, 0.9)),
-                         "95th Percentile" = comma(quantile(Value, 0.95)),
-                         "Maximum" = comma(max(Value)),
+                         "Minimum" = format(round(min(Value), 3),
+                                            big.mark = ","),
+                         "Q1" = format(round(quantile(Value, 0.25), 3),
+                                                  big.mark = ","),
+                         "Median" = format(round(quantile(Value, 0.5), 3),
+                                                  big.mark = ","),
+                         "Q3" = format(round(quantile(Value, 0.75), 3),
+                                                  big.mark = ","),
+                         "90th Percentile" = format(round(quantile(Value, 0.9), 3),
+                                                  big.mark = ","),
+                         "95th Percentile" = format(round(quantile(Value, 0.95), 3),
+                                                  big.mark = ","),
+                         "Maximum" = format(round(max(Value), 3),
+                                            big.mark = ","),
                          "Skew" = round(skewness(Value), 3),
-                         "Kurtosis" = round(kurtosis(Value), 2),
-                         "NA count" = comma(sum(is.na(ASX_Data_Frame))))
+                         "Kurtosis" = round(kurtosis(Value), 3),
+                         "NA count" = format(round(sum(is.na(ASX_Data_Frame)), 3),
+                                                  big.mark = ","))
 
-kable_styling(kable(t(ASX_Summary)),
+kable_styling(kable(t(ASX_Summary),
+                    align = "r"),
               full_width = F,
               latex_options = c("striped", "hold_position"),
-              position = "left")
+              position = "center")
 
 ```
 
 
 ### Density Plots
 
-Plotting the spread of the variables only further outlines the extremity of the skew. As such, it makes sense to trim upper extreme outliers from the data set.
-
+Plotting the spread of the features only further outlined the magnitude of the skew. As such, the data was filtered to remove shares that showed high values for any feature.  
+  
+  
 ```{r, fig.width=15, fig.height=10, message=FALSE, warning=FALSE}
 
 ggplot(ASX_Long) +
-  geom_density(aes(x=Value)) +
+  geom_density(aes(x = Value),
+               fill = "yellow", alpha = 0.25) +
   scale_x_continuous(labels=comma) +
   facet_rep_wrap(~Variable, repeat.tick.labels = T,
                  scales = "free", ncol = 2) +
-  ggtitle("Univariate Density Plots of each Variable") +
+  ggtitle("Univariate Density Plots of each Feature") +
   theme_minimal()
 
 ```
 
 
-### Filtering data
+### Filtering Data by Price
 
-As the data was extremely positively skewed, trimming out the top 1/3rd of the data allowed for concentration on the shares with similar prices. The data was trimmed by `ASX_Ticker` to remove shares that sold for `High` prices in the top 1/3 quantile at any date during the time considered. Summary statistics on the variables showed that this filtered data focussed on shares that sold for between \$0.02 and \$0.96 on any date. However, this data is still for a total of 1,365 unique `ASX_Ticker`s spread across nearly 65,000 observations, so the data set is somewhat sizeable.
-
+As the data was extremely positively skewed, trimming out the top 1/3rd of the data allowed for concentration on the shares with similar prices. The data was trimmed by `ASX_Ticker` to remove shares that sold for `High` prices in the top 1/3 quantile at any date during the time considered. Summary statistics on the variables showed that this filtered data focussed on shares that sold for between \$0.02 and \$0.96 on any date.
+  
+  
 ```{r, message=FALSE, warning=FALSE}
 
-ASX_Ticker_Summary <- summarise(group_by(ASX_Data_Frame, ASX_Ticker),
-                                "n ASX_Tickers" = comma(length(unique(ASX_Ticker))),
-                                "n Observations" = comma(n()),
-                                "Min Date" = format(ymd(min(Date)), "%d/%m/%Y"),
-                                "Max Date" = format(ymd(max(Date)), "%d/%m/%Y"),
-                                "Minimum" = min(High),
-                                "Q1" = quantile(High, 0.25),
-                                "Median" = quantile(High, 0.5),
-                                "Q3" = quantile(High, 0.75),
-                                "90th Percentile" = quantile(High, 0.9),
-                                "95th Percentile" = quantile(High, 0.95),
-                                "Maximum" = max(High),
-                                "Skew" = round(skewness(High), 3),
-                                "Kurtosis" = round(kurtosis(High), 2),
-                                "NA count" = comma(sum(is.na(ASX_Data_Frame))))
-  
+ASX_Ticker_Summary_Price <-
+  summarise(group_by(ASX_Data_Frame, ASX_Ticker),
+            "n ASX_Tickers" = comma(length(unique(ASX_Ticker))),
+            "n Observations" = comma(n()),
+            "Min Date" = format(ymd(min(Date)), "%d/%m/%Y"),
+            "Max Date" = format(ymd(max(Date)), "%d/%m/%Y"),
+            "Minimum" = min(High),
+            "Q1" = quantile(High, 0.25),
+            "Median" = quantile(High, 0.5),
+            "Q3" = quantile(High, 0.75),
+            "90th Percentile" = quantile(High, 0.9),
+            "95th Percentile" = quantile(High, 0.95),
+            "Maximum" = max(High),
+            "Skew" = round(skewness(High), 3),
+            "Kurtosis" = round(kurtosis(High), 3))
 
-kable_styling(kable(sample_n(ASX_Ticker_Summary, 20)),
+ASX_kable <- sample_n(ASX_Ticker_Summary_Price, 20)
+
+kable_styling(kable(ASX_kable[, 1:7],
+                    align = "lrrrrrr"),
               latex_options = c("striped", "hold_position"),
-              position = "left",
-              full_width = F)
+              position = "center",
+              full_width = F,
+              font_size = 10)
 
-ASX_Lower <- filter(ASX_Ticker_Summary, Maximum < quantile(Maximum, 2/3))
-  
-nrow(ASX_Lower)
+kable_styling(kable(ASX_kable[, c(1, 8:14)],
+                    align = "lrrrrrrr"),
+              latex_options = c("striped", "hold_position"),
+              position = "center",
+              full_width = F,
+              font_size = 10)
+
+ASX_Lower <- filter(ASX_Ticker_Summary_Price, Maximum < quantile(Maximum, 2/3))
 
 ASX_Long_Lower <- filter(ASX_Long, ASX_Ticker %in% ASX_Lower$ASX_Ticker)
 
 ASX_Data_Lower <- filter(ASX_Data_Frame, ASX_Ticker %in% ASX_Lower$ASX_Ticker)
 
-kable_styling(kable(sample_n(ASX_Data_Lower, 20)),
+kable_styling(kable(sample_n(ASX_Data_Lower, 20),
+                    align = "lrrrrrrl"),
               latex_options = c("striped", "hold_position"),
-              position = "left",
+              position = "center",
               full_width = F)
 
 ```
 
+\newpage
 
-#### Summary Statistics of Data After Removing Extreme ASX_Tickers
+Univariate density plots of the spread of the data after filtering still showed that the pricing features were skewed, albeit much less. The spread of data for `Volume` was still highly skewed, and so the same method for filtering the pricing features also needed to be applied to `Volume`.  
+  
+  
+```{r, fig.width=15, fig.height=10, message=FALSE, warning=FALSE}
+
+ggplot(ASX_Long_Lower) +
+  geom_density(aes(x=Value),
+               fill = "yellow", 
+               alpha = 0.25) +
+  scale_x_continuous(labels = comma) +
+  scale_y_continuous(labels = comma) +
+  facet_rep_wrap(~Variable, repeat.tick.labels = T,
+                 scales = "free", ncol = 2) +
+  ggtitle("Univariate Density Plots of each Feature") +
+  theme_minimal()
+
+```
+
+### Filtering Data by Volume
+
+The data was filtered by `ASX_Ticker` to remove the top 1/3 quantile of `Volume`.  
+  
+  
+```{r, message=FALSE, warning=FALSE}
+
+ASX_Ticker_Summary_Volume <-
+  summarise(group_by(ASX_Data_Frame, ASX_Ticker),
+            "n ASX_Tickers" = comma(length(unique(ASX_Ticker))),
+            "n Observations" = comma(n()),
+            "Min Date" = format(ymd(min(Date)), "%d/%m/%Y"),
+            "Max Date" = format(ymd(max(Date)), "%d/%m/%Y"),
+            "Minimum" = min(Volume),
+            "Q1" = quantile(Volume, 0.25),
+            "Median" = quantile(Volume, 0.5),
+            "Q3" = quantile(Volume, 0.75),
+            "90th Percentile" = quantile(Volume, 0.9),
+            "95th Percentile" = quantile(Volume, 0.95),
+            "Maximum" = max(Volume),
+            "Skew" = round(skewness(Volume), 3),
+            "Kurtosis" = round(kurtosis(Volume), 3))
+
+ASX_kable <- sample_n(ASX_Ticker_Summary_Volume, 20)
+
+kable_styling(kable(ASX_kable[, 1:7],
+                    align = "lrrrrrr"),
+              latex_options = c("striped", "hold_position"),
+              position = "center",
+              full_width = F,
+              font_size = 10)
+
+kable_styling(kable(ASX_kable[, c(1, 8:14)],
+                    align = "lrrrrrrr"),
+              latex_options = c("striped", "hold_position"),
+              position = "center",
+              full_width = F,
+              font_size = 10)
+
+ASX_Lower_Volume <- filter(ASX_Ticker_Summary_Volume,
+                           Maximum < quantile(Maximum, 1/3))
+
+ASX_Long_Lower <- filter(ASX_Long_Lower, ASX_Ticker %in% ASX_Lower_Volume$ASX_Ticker)
+
+ASX_Data_Lower <- filter(ASX_Data_Lower, ASX_Ticker %in% ASX_Lower_Volume$ASX_Ticker)
+
+kable_styling(kable(sample_n(ASX_Data_Lower, 20),
+                    align = "lrrrrrrl"),
+              latex_options = c("striped", "hold_position"),
+              position = "center",
+              full_width = F)
+
+```
+  
+### Density Plots After Filtering by Price and Volume
+
+After removing extreme values in the `High` and `Volume` feature, univariate density plots were still right skewed but much less extreme.  
+  
+  
+```{r, fig.width=15, fig.height=10, message=FALSE, warning=FALSE}
+
+ggplot(ASX_Long_Lower) +
+  geom_density(aes(x=Value),
+               fill = "yellow", 
+               alpha = 0.25) +
+  scale_x_continuous(labels=comma) +
+  facet_rep_wrap(~Variable, repeat.tick.labels = T,
+                 scales = "free", ncol = 2) +
+  ggtitle("Univariate Density Plots of each Feature") +
+  theme_minimal()
+
+```
+
+### Summary Statistics of Data After Removing Extreme ASX_Tickers
+
+After filtering by Price (`High`) and `Volume`, each of the price features were much less skewed; all below 1.0. `Volume` was still somewhat skewed, but further filtering the data based on this feature might risk the accuracy of the model in Phase 2. The skew for `Volume` before filtering was 33.523, whereas after filtering is 2.658.
 
 ```{r, message=FALSE, warning=FALSE}
 
@@ -369,20 +496,27 @@ ASX_Summary_Lower <- summarise(group_by(ASX_Long_Lower,
                                "n Observations" = comma(n()),
                                "Min Date" = format(ymd(min(Date)), "%d/%m/%Y"),
                                "Max Date" = format(ymd(max(Date)), "%d/%m/%Y"),
-                               "Minimum" = round(min(Value), 2),
-                               "Q1" = round(quantile(Value, 0.25), 2),
-                               "Median" = round(quantile(Value, 0.5), 2),
-                               "Q3" = round(quantile(Value, 0.75), 2),
-                               "90th Percentile" = round(quantile(Value, 0.9), 2),
-                               "95th Percentile" = round(quantile(Value, 0.95), 2),
-                               "Maximum" = round(max(Value), 2),
+                               "Minimum" = format(round(min(Value), 2),
+                                                  big.mark = ","),
+                               "Q1" = format(round(quantile(Value, 0.25), 3),
+                                                  big.mark = ","),
+                               "Median" = format(round(quantile(Value, 0.5), 3),
+                                                  big.mark = ","),
+                               "Q3" = format(round(quantile(Value, 0.75), 3),
+                                                  big.mark = ","),
+                               "90th Percentile" = format(round(quantile(Value, 0.9), 3),
+                                                          big.mark = ","),
+                               "95th Percentile" = format(round(quantile(Value, 0.95), 3),
+                                                          big.mark = ","),
+                               "Maximum" = format(round(max(Value), 3),
+                                                  big.mark = ","),
                                "Skew" = round(skewness(Value), 3),
-                               "Kurtosis" = round(kurtosis(Value), 2),
-                               "NA count" = comma(sum(is.na(ASX_Data_Frame))))
+                               "Kurtosis" = round(kurtosis(Value), 2))
 
-kable_styling(kable(t(ASX_Summary_Lower)),
+kable_styling(kable(t(ASX_Summary_Lower),
+                    align = "r"),
               latex_options = c("striped", "hold_position"),
-              position = "left",
+              position = "center",
               full_width = F)
 
 ```
@@ -391,15 +525,18 @@ kable_styling(kable(t(ASX_Summary_Lower)),
 
 ## Data Exploration and Visualisation
 
-### Univariate Visualisations
+### Share Price Tracking
 
-```{r, fig.width=12, fig.height=9, message=FALSE, warning=FALSE}
+The visualisations below of share prices for 21 randomly[^2] selected stocks did not reveal any consistent trends or abnormalities. Each of the below stocks appeared to resemble normal pricing behaviour for share prices. All four pricing variables (`Open`, `Low`, `High`, `Close`) all appear to be very highly correlated, but with an estimated correlation of $r\neq 1$.  
+  
+  
+```{r, fig.width=12, fig.height=15, message=FALSE, warning=FALSE}
 
 ASX_Data_Lower$Date <- ymd(ASX_Data_Lower$Date)
 
 ASX_Data_Lower <- arrange(ASX_Data_Lower, ASX_Ticker, Date)
 
-Sample_Tickers <- sample(ASX_Data_Lower$ASX_Ticker, size = 20)
+Sample_Tickers <- sample(ASX_Data_Lower$ASX_Ticker, size = 21)
 
 ASX_Data_Samples <- arrange(filter(ASX_Data_Lower, ASX_Ticker %in% Sample_Tickers),
                             ASX_Ticker, Date)
@@ -410,29 +547,69 @@ ggplot(ASX_Data_Samples) +
   geom_line(aes(x=Date, y=Open, col="Open"), size=1.25) +
   geom_line(aes(x=Date, y=Close, col="Close"), size=1.25) +
   scale_x_date(date_breaks = "month", date_labels = "%b-%y") +
+  scale_y_continuous("Sales Price",
+                     labels = dollar) +
   scale_color_manual(name = "Share Prices",
                      values = c("Open"="blue3",
                                 "High"="grey50", 
                                 "Low"="black", 
                                 "Close"="red3")) +
-  ggtitle("Sales History of 20 Shares from 02-01-2019 to 12-04-2019") +
+  labs(title = "Sales Prices of 21 Shares from 02-01-2019 to 12-04-2019",
+       caption = "Please note y-axes are not restricted to start at 0") +
   facet_rep_wrap(~ASX_Ticker, repeat.tick.labels = T,
-                 scales = "free_y", ncol = 4) +
+                 scales = "free_y", ncol = 3) +
   theme_minimal() +
   theme(text = element_text(size = 12))
 
 ```
 
+[^2]: pseudo-random; from a uniform distribution and not a truly random selection.
 
-```{r, fig.width=12, fig.height=10, message=FALSE, warning=FALSE}
+\newpage
+### Volume of Shares Sold
 
-ASX_Data_Lower$GICS_industry_group <- recode(ASX_Data_Lower$GICS_industry_group, "Not Applic"="NA")
+The below visualisation of the volume of stocks sold from same 21 shares was quite different to the  price features. The volumes of stocks sold appeared to be highly variable and erratic, with large spikes breaking up long periods of low selling days to weeks. This seems to suggest that the buying and selling nature of stocks does not have a strong correlation with any of the pricing variables.  
+  
+  
+```{r, fig.width=12, fig.height=15, message=FALSE, warning=FALSE}
+
+ggplot(ASX_Data_Samples) +
+  geom_line(aes(x=Date, y=Volume),
+            size=1.25, col = "turquoise4") +
+  scale_x_date(date_breaks = "month", date_labels = "%b-%y") +
+  scale_y_continuous("Volume Sold",
+                     labels = comma)+
+  ggtitle("Volume of Stock Sold of 21 Shares from 02-01-2019 to 12-04-2019") +
+  facet_rep_wrap(~ASX_Ticker, repeat.tick.labels = T,
+                 scales = "free_y", ncol = 3) +
+  theme_minimal() +
+  theme(text = element_text(size = 12))
+
+```
+
+\newpage
+### Number of Companies per GICS Group
+
+The `Materials` industry group was the most frequently occurring GICS grouping in the data set with 4,370 different `ASX_Ticker`s. This was nearly four-times the size of the second-most frequently occurring GICS grouping; `Pharmaceuticals, Biotechnology & Life Sciences` with 1,091 different `ASX_Ticker`s.
+  
+  
+```{r, fig.width=12, fig.height=12, message=FALSE, warning=FALSE}
+
+ASX_Data_Lower$GICS_industry_group <- recode(ASX_Data_Lower$GICS_industry_group,
+                                             "Not Applic"="Not Applicable")
+
+ASX_Data_Lower$GICS_industry_group[is.na(
+  ASX_Data_Lower$GICS_industry_group)] <- 
+  "No Matching GICS Group"
+
+ASX_Data_Lower$GICS_industry_group[ASX_Data_Lower$GICS_industry_group == "NA"] <- 
+  "No Matching GICS Group"
 
 fill_grad <-
   seq_gradient_pal("blue3",
                    "cyan")(seq(0,1,
                                length.out = length(
-                                 unique(ASX_Data_Lower$GICS_industry_group))-1))
+                                 unique(ASX_Data_Lower$GICS_industry_group))))
 
 ASX_Data_Count <- summarise(group_by(ASX_Data_Lower,
                                      GICS_industry_group),
@@ -447,20 +624,21 @@ ggplot(ASX_Data_Lower, aes(x = fct_rev(fct_infreq(GICS_industry_group)),
                 y = Count,
                 label = comma(Count)),
             hjust = -0.1) +
-    geom_text(data = filter(ASX_Data_Count,
+  geom_text(data = filter(ASX_Data_Count,
                           GICS_industry_group == "Materials"),
             aes(x = GICS_industry_group,
                 y = Count,
                 label = comma(Count)),
             hjust = 1.25, col="white") +
   ggtitle("Frequencies of each GICS Industry Type") +
-  scale_y_continuous(breaks = seq(0,30000, 2500),
-                     limits = c(0,max(ASX_Data_Count$Count)*1.075),
+  scale_y_continuous(breaks = seq(0, max(ASX_Data_Count$Count)*1.075,
+                                  by = 2500),
+                     limits = c(0, max(ASX_Data_Count$Count)*1.075),
                      expand = c(0,0),
                      labels = comma,
                      "Number of ASX_Tickers") +
   scale_x_discrete("GICS Industry Group Type") +
-  scale_fill_manual(values = c(fill_grad, "grey60")) +
+  scale_fill_manual(values = c(fill_grad)) +
   theme_minimal() +
   coord_flip() +
   theme(panel.grid.minor.x = element_blank(),
@@ -471,4 +649,140 @@ ggplot(ASX_Data_Lower, aes(x = fct_rev(fct_infreq(GICS_industry_group)),
 
 ```
 
+\newpage
+### Mean Volumes Sold by GICS Groups
+
+The below plot shows that, after some filtering, the mean volume of shares sold is very similar between GICS industry groups.  
+  
+  
+```{r, fig.width=12, fig.height=10, message=FALSE, warning=FALSE}
+
+ASX_Lower_Vol <- summarise(group_by(ASX_Data_Lower,
+                                    GICS_industry_group),
+                           Mean_Vol = mean(Volume),
+                           n_Companies = n())
+
+ASX_Lower_Vol$GICS_industry_group <- factor(ASX_Lower_Vol$GICS_industry_group,
+                                            levels = ASX_Lower_Vol$GICS_industry_group[
+                                              order(ASX_Lower_Vol$Mean_Vol)])
+
+fill_grad <-
+  seq_gradient_pal("cyan",
+                   "blue3")(seq(0,1,
+                                length.out = length(
+                                  unique(ASX_Lower_Vol$GICS_industry_group))))
+
+ggplot(ASX_Lower_Vol) +
+  geom_bar(aes(x = GICS_industry_group, y = Mean_Vol,
+               fill = GICS_industry_group),
+           stat = "identity", show.legend = F,
+           alpha = 0.75) +
+  geom_text(aes(x = GICS_industry_group,
+                y = Mean_Vol,
+                label = paste("n =",
+                              n_Companies)),
+            hjust=-0.25) +
+  scale_y_continuous(breaks = seq(0,max(ASX_Lower_Vol$Mean_Vol), 25000),
+                     limits = c(0,max(ASX_Lower_Vol$Mean_Vol)*1.1),
+                     expand = c(0,0),
+                     labels = comma,
+                     "Mean Volume of Shares Sold") +
+  scale_x_discrete("GICS Industry Group Type") +
+  ggtitle("Mean Volume of Shares Sold per GICS Group") +
+  scale_fill_manual(values = fill_grad) +
+  theme_minimal() +
+  coord_flip() +
+  theme(panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        text = element_text(size = 12),
+        panel.border = element_blank())
+
+```
+
+\newpage
+### Volumes Sold of each GICS per Day
+
+To further explore the spread of the data, the volumes sold of shares within each GICS was visualised as boxplots for the total time period in the data set. These boxplots below showed that, despite the data set being right-skewed, that the skew is present across most GICS groups.    
+
+```{r, fig.width=12, fig.height=15, message=FALSE, warning=FALSE}
+
+ggplot(ASX_Data_Lower) +
+  geom_boxplot(aes(x = fct_rev(GICS_industry_group), y = Volume,
+                   fill = GICS_industry_group),
+               show.legend = F, col = "black",
+               size = 1,
+               outlier.size = 1.25,
+               outlier.colour = "blue3") +
+  scale_x_discrete("GICS Industry Group") +
+  scale_y_continuous("Volume of Stock Sold each Day",
+                     labels = comma,
+                     breaks = seq(0, max(ASX_Data_Lower$Volume),
+                                100000)) +
+  scale_fill_manual(values = fill_grad) +
+  labs(title = "Volume of Stock Sold Each Day per GICS Industry Group") +
+  theme_minimal() +
+  coord_flip() +
+  theme(panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        text = element_text(size = 12),
+        panel.border = element_blank())
+
+```
+
+
+### Pricing Features for Each GICS Group
+
+Boxplots were generated for each Pricing Feature for each GICS group. Just like with the boxplots for `Volume` above, this visualisation showed the spread of each of the Pricing descriptive features over the total time period collected. Unlike the `Volume` boxplots above, the Pricing features showed less skew within GICS group and less similarity between groups.
+
+```{r, fig.width=12, fig.height=15.5, message=FALSE, warning=FALSE}
+
+ASX_Long_Lower$GICS_industry_group[is.na(ASX_Long_Lower$GICS_industry_group)] <- 
+  "No Matching GICS Group"
+
+ASX_Long_Lower$GICS_industry_group[ASX_Long_Lower$GICS_industry_group ==
+                                     "Not Applic"] <- "No Matching GICS Group"
+
+ggplot(filter(ASX_Long_Lower, Variable != "Volume")) +
+  geom_boxplot(aes(x = GICS_industry_group, y = Value,
+                   fill = GICS_industry_group),
+               show.legend = F, col = "black",
+               size = 1,
+               outlier.size = 1.25,
+               outlier.colour = "blue3") +
+  facet_rep_wrap(~fct_rev(Variable), scales = "free_y",
+                 ncol = 1, repeat.tick.labels = "y") +
+  scale_x_discrete("GICS Industry Group") +
+  scale_y_continuous("Volume of Stock Sold each Day",
+                     labels = comma_format(accuracy = 0.1)) +
+  scale_fill_manual(values = fill_grad) +
+  labs(title = "Stock Selling Prices Each Day per GICS Industry Group",
+       subtitle = "Faceted by Pricing Type; Open, High, Low, Close") +
+  theme_minimal() +
+  theme(panel.grid.minor.x = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.text.x = element_text(angle = 90,
+                                   hjust = 1, vjust = 0.25),
+        text = element_text(size = 12),
+        panel.border = element_blank(),
+        strip.background = element_rect(fill = "#c9fff7"),
+        strip.text = element_text(face = "bold"))
+
+```
+
+\newpage
+## Summary
+
+After compiling the data, it was observed to be heavily skewed for all continuous descriptive features. Price and Volume features were used to filter ASX Tickers to remove extreme values that were causing the right-skew. The dataset remaining was still right-skewed, but to a much lesser extent.  
+GICS Industry Group was added to the data set, which included a descriptive feature `Company_name`. Company name was deemed to provide no information gain as each `ASX_Ticker` was linked to a unique Company name, and so Company Name was removed.  
+Several visualisations, both univariate and multivariate, were produced that explored the nature of the data. Univariate density plots were produced to show the spread of the descriptive features before and after filtering extreme values. Time series line plots were also produced to investigate the behaviour of pricing features and the sales volume feature. GICS was also explored by frequency of each group and mean volume sold per group. The spread of the data was also explored by GICS group for all continuous descriptive features and for the target feature Volume.
+
+\newpage
+### References
+
+1. *ASX Historical Data*, ASXHistoricalData.com, viewed 19 April 2019,  <https://www.asxhistoricaldata.com/>
+
+2. Australian Securities Exchange (ASX), *GICS*, viewed 22 April, 2019, <https://www.asx.com.au/products/gics.htm>
 

@@ -11,4 +11,5 @@
 "0","                          ""kableExtra"", ## add ons for knitr tables"
 "0","                          ""scales"",     ## quick and easy formatting prettynums"
 "0","                          ""e1071"",      ## for skew and kurtosis"
+"0","                          ""Hmisc"",      ## correlation"
 "0","                          ""janitor"")))  ## cleaning colnames"

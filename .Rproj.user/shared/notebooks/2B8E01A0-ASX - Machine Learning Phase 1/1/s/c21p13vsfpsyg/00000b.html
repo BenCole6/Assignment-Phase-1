@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<script src="lib/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="lib/bootstrap-3.3.5/css/simplex.min.css" rel="stylesheet" />
+<script src="lib/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="lib/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="lib/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="lib/kePrint-0.0.1/kePrint.js"></script>
+
+</head>
+<body style="background-color:white;">
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> ASX_Ticker </th>
+   <th style="text-align:right;"> Date </th>
+   <th style="text-align:right;"> Open </th>
+   <th style="text-align:right;"> High </th>
+   <th style="text-align:right;"> Low </th>
+   <th style="text-align:right;"> Close </th>
+   <th style="text-align:right;"> Volume </th>
+   <th style="text-align:left;"> GICS_industry_group </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> ARL </td>
+   <td style="text-align:right;"> 20190220 </td>
+   <td style="text-align:right;"> 0.470 </td>
+   <td style="text-align:right;"> 0.470 </td>
+   <td style="text-align:right;"> 0.450 </td>
+   <td style="text-align:right;"> 0.450 </td>
+   <td style="text-align:right;"> 59525 </td>
+   <td style="text-align:left;"> Materials </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> MDC </td>
+   <td style="text-align:right;"> 20190110 </td>
+   <td style="text-align:right;"> 0.420 </td>
+   <td style="text-align:right;"> 0.425 </td>
+   <td style="text-align:right;"> 0.415 </td>
+   <td style="text-align:right;"> 0.420 </td>
+   <td style="text-align:right;"> 11415 </td>
+   <td style="text-align:left;"> Pharmaceuticals, Biotechnology &amp; Life Sciences </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> JRL </td>
+   <td style="text-align:right;"> 20190225 </td>
+   <td style="text-align:right;"> 0.280 </td>
+   <td style="text-align:right;"> 0.280 </td>
+   <td style="text-align:right;"> 0.280 </td>
+   <td style="text-align:right;"> 0.280 </td>
+   <td style="text-align:right;"> 20000 </td>
+   <td style="text-align:left;"> Materials </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AZS </td>
+   <td style="text-align:right;"> 20190403 </td>
+   <td style="text-align:right;"> 0.105 </td>
+   <td style="text-align:right;"> 0.110 </td>
+   <td style="text-align:right;"> 0.105 </td>
+   <td style="text-align:right;"> 0.110 </td>
+   <td style="text-align:right;"> 111183 </td>
+   <td style="text-align:left;"> Materials </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> QEM </td>
+   <td style="text-align:right;"> 20190123 </td>
+   <td style="text-align:right;"> 0.125 </td>
+   <td style="text-align:right;"> 0.125 </td>
+   <td style="text-align:right;"> 0.125 </td>
+   <td style="text-align:right;"> 0.125 </td>
+   <td style="text-align:right;"> 50000 </td>
+   <td style="text-align:left;"> Materials </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SAU </td>
+   <td style="text-align:right;"> 20190103 </td>
+   <td style="text-align:right;"> 0.145 </td>
+   <td style="text-align:right;"> 0.145 </td>
+   <td style="text-align:right;"> 0.145 </td>
+   <td style="text-align:right;"> 0.145 </td>
+   <td style="text-align:right;"> 94976 </td>
+   <td style="text-align:left;"> Materials </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AON </td>
+   <td style="text-align:right;"> 20190306 </td>
+   <td style="text-align:right;"> 0.120 </td>
+   <td style="text-align:right;"> 0.120 </td>
+   <td style="text-align:right;"> 0.120 </td>
+   <td style="text-align:right;"> 0.120 </td>
+   <td style="text-align:right;"> 88048 </td>
+   <td style="text-align:left;"> Materials </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> TIN </td>
+   <td style="text-align:right;"> 20190403 </td>
+   <td style="text-align:right;"> 0.135 </td>
+   <td style="text-align:right;"> 0.135 </td>
+   <td style="text-align:right;"> 0.135 </td>
+   <td style="text-align:right;"> 0.135 </td>
+   <td style="text-align:right;"> 10082 </td>
+   <td style="text-align:left;"> Materials </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> IXU </td>
+   <td style="text-align:right;"> 20190322 </td>
+   <td style="text-align:right;"> 0.120 </td>
+   <td style="text-align:right;"> 0.120 </td>
+   <td style="text-align:right;"> 0.120 </td>
+   <td style="text-align:right;"> 0.120 </td>
+   <td style="text-align:right;"> 54000 </td>
+   <td style="text-align:left;"> Software &amp; Services </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> NWF </td>
+   <td style="text-align:right;"> 20190328 </td>
+   <td style="text-align:right;"> 0.155 </td>
+   <td style="text-align:right;"> 0.155 </td>
+   <td style="text-align:right;"> 0.155 </td>
+   <td style="text-align:right;"> 0.155 </td>
+   <td style="text-align:right;"> 30354 </td>
+   <td style="text-align:left;"> Materials </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> KBC </td>
+   <td style="text-align:right;"> 20190122 </td>
+   <td style="text-align:right;"> 0.066 </td>
+   <td style="text-align:right;"> 0.066 </td>
+   <td style="text-align:right;"> 0.066 </td>
+   <td style="text-align:right;"> 0.066 </td>
+   <td style="text-align:right;"> 5042 </td>
+   <td style="text-align:left;"> Diversified Financials </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> KGD </td>
+   <td style="text-align:right;"> 20190308 </td>
+   <td style="text-align:right;"> 0.023 </td>
+   <td style="text-align:right;"> 0.023 </td>
+   <td style="text-align:right;"> 0.023 </td>
+   <td style="text-align:right;"> 0.023 </td>
+   <td style="text-align:right;"> 498464 </td>
+   <td style="text-align:left;"> Materials </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> KGM </td>
+   <td style="text-align:right;"> 20190131 </td>
+   <td style="text-align:right;"> 0.005 </td>
+   <td style="text-align:right;"> 0.005 </td>
+   <td style="text-align:right;"> 0.005 </td>
+   <td style="text-align:right;"> 0.005 </td>
+   <td style="text-align:right;"> 132114 </td>
+   <td style="text-align:left;"> Materials </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> RVA </td>
+   <td style="text-align:right;"> 20190125 </td>
+   <td style="text-align:right;"> 0.210 </td>
+   <td style="text-align:right;"> 0.210 </td>
+   <td style="text-align:right;"> 0.190 </td>
+   <td style="text-align:right;"> 0.190 </td>
+   <td style="text-align:right;"> 20000 </td>
+   <td style="text-align:left;"> Health Care Equipment &amp; Services </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> MGZ </td>
+   <td style="text-align:right;"> 20190115 </td>
+   <td style="text-align:right;"> 0.021 </td>
+   <td style="text-align:right;"> 0.021 </td>
+   <td style="text-align:right;"> 0.021 </td>
+   <td style="text-align:right;"> 0.021 </td>
+   <td style="text-align:right;"> 10538 </td>
+   <td style="text-align:left;"> Health Care Equipment &amp; Services </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SEQ </td>
+   <td style="text-align:right;"> 20190219 </td>
+   <td style="text-align:right;"> 0.250 </td>
+   <td style="text-align:right;"> 0.260 </td>
+   <td style="text-align:right;"> 0.250 </td>
+   <td style="text-align:right;"> 0.260 </td>
+   <td style="text-align:right;"> 35717 </td>
+   <td style="text-align:left;"> Diversified Financials </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> NVX </td>
+   <td style="text-align:right;"> 20190109 </td>
+   <td style="text-align:right;"> 0.420 </td>
+   <td style="text-align:right;"> 0.435 </td>
+   <td style="text-align:right;"> 0.400 </td>
+   <td style="text-align:right;"> 0.420 </td>
+   <td style="text-align:right;"> 19128 </td>
+   <td style="text-align:left;"> Materials </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AMB </td>
+   <td style="text-align:right;"> 20190221 </td>
+   <td style="text-align:right;"> 0.075 </td>
+   <td style="text-align:right;"> 0.075 </td>
+   <td style="text-align:right;"> 0.070 </td>
+   <td style="text-align:right;"> 0.070 </td>
+   <td style="text-align:right;"> 300000 </td>
+   <td style="text-align:left;"> Commercial &amp; Professional Services </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> CBY </td>
+   <td style="text-align:right;"> 20190325 </td>
+   <td style="text-align:right;"> 0.300 </td>
+   <td style="text-align:right;"> 0.300 </td>
+   <td style="text-align:right;"> 0.295 </td>
+   <td style="text-align:right;"> 0.295 </td>
+   <td style="text-align:right;"> 28777 </td>
+   <td style="text-align:left;"> Materials </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> NOX </td>
+   <td style="text-align:right;"> 20190226 </td>
+   <td style="text-align:right;"> 0.435 </td>
+   <td style="text-align:right;"> 0.435 </td>
+   <td style="text-align:right;"> 0.430 </td>
+   <td style="text-align:right;"> 0.435 </td>
+   <td style="text-align:right;"> 11003 </td>
+   <td style="text-align:left;"> Pharmaceuticals, Biotechnology &amp; Life Sciences </td>
+  </tr>
+</tbody>
+</table>
+</body>
+</html>
