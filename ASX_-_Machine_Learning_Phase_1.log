@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99999 (MiKTeX 2.9.6930 64-bit) (preloaded format=xelatex 2019.4.25)  28 APR 2019 12:29
+This is XeTeX, Version 3.14159265-2.6-0.99999 (MiKTeX 2.9.6930 64-bit) (preloaded format=xelatex 2019.4.25)  28 APR 2019 21:38
 entering extended mode
 **./ASX_-_Machine_Learning_Phase_1.tex
 (ASX_-_Machine_Learning_Phase_1.tex
@@ -972,7 +972,20 @@ Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
 Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
-) (ASX_-_Machine_Learning_Phase_1.aux)
+) (ASX_-_Machine_Learning_Phase_1.aux
+
+LaTeX Warning: Label `tab:unnamed-chunk-8' multiply defined.
+
+
+LaTeX Warning: Label `tab:unnamed-chunk-8' multiply defined.
+
+
+LaTeX Warning: Label `tab:unnamed-chunk-10' multiply defined.
+
+
+LaTeX Warning: Label `tab:unnamed-chunk-10' multiply defined.
+
+)
 \openout1 = `ASX_-_Machine_Learning_Phase_1.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 145.
@@ -1141,451 +1154,424 @@ File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 ]
 LaTeX Font Info:    Font shape `TU/ArialNova(0)/bx/n' will be
 (Font)              scaled to size 11.97992pt on input line 157.
-[2]
-LaTeX Font Info:    Font shape `TU/ArialNova(0)/m/n' will be
-(Font)              scaled to size 6.65552pt on input line 249.
-LaTeX Font Info:    Font shape `TU/ArialNova(0)/m/n' will be
-(Font)              scaled to size 8.3194pt on input line 251.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 251.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 251.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 251.
-LaTeX Font Info:    Font shape `TU/ArialNova(0)/m/n' will be
-(Font)              scaled to size 5.82358pt on input line 251.
-[3]
+LaTeX Font Info:    Font shape `TU/ArialNova(0)/m/it' will be
+(Font)              scaled to size 9.98328pt on input line 182.
+[2] [3]
 
-Package xcolor Warning: Incompatible color definition on input line 281.
+Package xcolor Warning: Incompatible color definition on input line 280.
 
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <12> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 283.
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 282.
 
-Package xcolor Warning: Incompatible color definition on input line 299.
-
-
-Package xcolor Warning: Incompatible color definition on input line 299.
+Package xcolor Warning: Incompatible color definition on input line 300.
 
 
-Package xcolor Warning: Incompatible color definition on input line 307.
+Package xcolor Warning: Incompatible color definition on input line 300.
 
 
-Package xcolor Warning: Incompatible color definition on input line 406.
+Package xcolor Warning: Incompatible color definition on input line 308.
 
 
-Package xcolor Warning: Incompatible color definition on input line 406.
+Package xcolor Warning: Incompatible color definition on input line 410.
 
 
-Overfull \vbox (1.71172pt too high) detected at line 406
+Package xcolor Warning: Incompatible color definition on input line 410.
+
+
+Overfull \vbox (1.44771pt too high) detected at line 410
  []
 
 
-Package xcolor Warning: Incompatible color definition on input line 406.
+Package xcolor Warning: Incompatible color definition on input line 410.
 
 [4]
 
-Package xcolor Warning: Incompatible color definition on input line 406.
+Package xcolor Warning: Incompatible color definition on input line 410.
 
 
-Package xcolor Warning: Incompatible color definition on input line 406.
+Package xcolor Warning: Incompatible color definition on input line 410.
 
 
-Underfull \vbox (badness 10000) detected at line 406
+Underfull \vbox (badness 10000) detected at line 410
  []
 
 
-Underfull \vbox (badness 10000) detected at line 406
+Underfull \vbox (badness 10000) detected at line 410
  []
 
 
-Package xcolor Warning: Incompatible color definition on input line 406.
+Package xcolor Warning: Incompatible color definition on input line 410.
 
 [5]
 
-Package xcolor Warning: Incompatible color definition on input line 406.
+Package xcolor Warning: Incompatible color definition on input line 410.
 
 
-Package xcolor Warning: Incompatible color definition on input line 406.
+Package xcolor Warning: Incompatible color definition on input line 410.
+
+LaTeX Font Info:    Font shape `TU/ArialNova(0)/m/n' will be
+(Font)              scaled to size 8.3194pt on input line 417.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 418.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 418.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 418.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Package xcolor Warning: Incompatible color definition on input line 457.
+Package xcolor Warning: Incompatible color definition on input line 465.
+
+
+Package xcolor Warning: Incompatible color definition on input line 471.
+
+
+Package xcolor Warning: Incompatible color definition on input line 471.
 
 [6]
 
-Package xcolor Warning: Incompatible color definition on input line 463.
+Package xcolor Warning: Incompatible color definition on input line 482.
 
 
-Package xcolor Warning: Incompatible color definition on input line 463.
+Package xcolor Warning: Incompatible color definition on input line 525.
+
+
+Package xcolor Warning: Incompatible color definition on input line 525.
+
+
+Underfull \vbox (badness 3792) detected at line 525
+ []
+
+
+Package xcolor Warning: Incompatible color definition on input line 525.
 
 [7]
 
-Package xcolor Warning: Incompatible color definition on input line 474.
+Package xcolor Warning: Incompatible color definition on input line 525.
 
 
-Package xcolor Warning: Incompatible color definition on input line 518.
+Package xcolor Warning: Incompatible color definition on input line 525.
 
 
-Package xcolor Warning: Incompatible color definition on input line 518.
+Package xcolor Warning: Incompatible color definition on input line 579.
 
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
+Package xcolor Warning: Incompatible color definition on input line 585.
 
 
-Package xcolor Warning: Incompatible color definition on input line 569.
+Package xcolor Warning: Incompatible color definition on input line 585.
 
 
-Package xcolor Warning: Incompatible color definition on input line 575.
+Package xcolor Warning: Incompatible color definition on input line 593.
 
 
-Package xcolor Warning: Incompatible color definition on input line 575.
+Package xcolor Warning: Incompatible color definition on input line 606.
 
 
-Package xcolor Warning: Incompatible color definition on input line 583.
+Package xcolor Warning: Incompatible color definition on input line 606.
+
+
+Overfull \vbox (0.56953pt too high) detected at line 606
+ []
+
+
+Package xcolor Warning: Incompatible color definition on input line 606.
 
 [8]
 
-Package xcolor Warning: Incompatible color definition on input line 593.
+Package xcolor Warning: Incompatible color definition on input line 606.
 
 
-Package xcolor Warning: Incompatible color definition on input line 593.
+Package xcolor Warning: Incompatible color definition on input line 606.
 
 
-Overfull \hbox (41.09856pt too wide) in paragraph at lines 597--642
- [][] 
- []
+Package xcolor Warning: Incompatible color definition on input line 668.
 
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
+Package xcolor Warning: Incompatible color definition on input line 708.
 
 
-Package xcolor Warning: Incompatible color definition on input line 651.
+Package xcolor Warning: Incompatible color definition on input line 708.
 
 
-Package xcolor Warning: Incompatible color definition on input line 689.
-
-
-Package xcolor Warning: Incompatible color definition on input line 689.
-
-
-Package xcolor Warning: Incompatible color definition on input line 689.
+Package xcolor Warning: Incompatible color definition on input line 708.
 
 [9]
 
-Package xcolor Warning: Incompatible color definition on input line 689.
+Package xcolor Warning: Incompatible color definition on input line 708.
 
 
-Package xcolor Warning: Incompatible color definition on input line 689.
+Package xcolor Warning: Incompatible color definition on input line 708.
 
 
-Underfull \vbox (badness 10000) detected at line 689
- []
+Package xcolor Warning: Incompatible color definition on input line 756.
 
 
-Underfull \vbox (badness 10000) detected at line 689
- []
+Package xcolor Warning: Incompatible color definition on input line 767.
 
 
-Package xcolor Warning: Incompatible color definition on input line 689.
+Package xcolor Warning: Incompatible color definition on input line 767.
+
+
+Package xcolor Warning: Incompatible color definition on input line 767.
 
 [10]
 
-Package xcolor Warning: Incompatible color definition on input line 689.
+Package xcolor Warning: Incompatible color definition on input line 767.
 
 
-Package xcolor Warning: Incompatible color definition on input line 689.
-
-
-Package xcolor Warning: Incompatible color definition on input line 734.
-
-
-Package xcolor Warning: Incompatible color definition on input line 745.
-
-
-Package xcolor Warning: Incompatible color definition on input line 745.
+Package xcolor Warning: Incompatible color definition on input line 767.
 
 File: ASX_-_Machine_Learning_Phase_1_files/figure-latex/unnamed-chunk-6-1.pdf G
 raphic file (type pdf)
 <use ASX_-_Machine_Learning_Phase_1_files/figure-latex/unnamed-chunk-6-1.pdf>
 [11]
 
-Package xcolor Warning: Incompatible color definition on input line 759.
+Package xcolor Warning: Incompatible color definition on input line 776.
 
 
-Package xcolor Warning: Incompatible color definition on input line 786.
+Package xcolor Warning: Incompatible color definition on input line 789.
 
 
-Package xcolor Warning: Incompatible color definition on input line 786.
+Package xcolor Warning: Incompatible color definition on input line 789.
 
+File: ASX_-_Machine_Learning_Phase_1_files/figure-latex/unnamed-chunk-7-1.pdf G
+raphic file (type pdf)
+<use ASX_-_Machine_Learning_Phase_1_files/figure-latex/unnamed-chunk-7-1.pdf>
 
-Package xcolor Warning: Incompatible color definition on input line 786.
+Package xcolor Warning: Incompatible color definition on input line 803.
 
 [12]
 
-Package xcolor Warning: Incompatible color definition on input line 786.
+Package xcolor Warning: Incompatible color definition on input line 831.
 
 
-Package xcolor Warning: Incompatible color definition on input line 786.
+Package xcolor Warning: Incompatible color definition on input line 831.
 
 
-Package xcolor Warning: Incompatible color definition on input line 839.
-
-
-Package xcolor Warning: Incompatible color definition on input line 848.
-
-
-Package xcolor Warning: Incompatible color definition on input line 848.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-Package xcolor Warning: Incompatible color definition on input line 901.
-
-
-Package xcolor Warning: Incompatible color definition on input line 915.
-
-
-Package xcolor Warning: Incompatible color definition on input line 915.
-
-
-Overfull \hbox (13.68843pt too wide) in paragraph at lines 919--964
- [][] 
- []
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
+Package xcolor Warning: Incompatible color definition on input line 886.
 
 [13]
 
-Package xcolor Warning: Incompatible color definition on input line 974.
+Package xcolor Warning: Incompatible color definition on input line 897.
 
 
-Package xcolor Warning: Incompatible color definition on input line 987.
+Package xcolor Warning: Incompatible color definition on input line 897.
 
 
-Package xcolor Warning: Incompatible color definition on input line 987.
+Package xcolor Warning: Incompatible color definition on input line 952.
 
 
-Underfull \vbox (badness 10000) detected at line 987
- []
+Package xcolor Warning: Incompatible color definition on input line 969.
 
 
-Package xcolor Warning: Incompatible color definition on input line 987.
+Package xcolor Warning: Incompatible color definition on input line 969.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [14]
 
-Package xcolor Warning: Incompatible color definition on input line 987.
+Package xcolor Warning: Incompatible color definition on input line 1032.
 
 
-Package xcolor Warning: Incompatible color definition on input line 987.
+Package xcolor Warning: Incompatible color definition on input line 1045.
 
-File: ASX_-_Machine_Learning_Phase_1_files/figure-latex/unnamed-chunk-8-1.pdf G
+
+Package xcolor Warning: Incompatible color definition on input line 1045.
+
+File: ASX_-_Machine_Learning_Phase_1_files/figure-latex/unnamed-chunk-9-1.pdf G
 raphic file (type pdf)
-<use ASX_-_Machine_Learning_Phase_1_files/figure-latex/unnamed-chunk-8-1.pdf>
-
-Package xcolor Warning: Incompatible color definition on input line 996.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1023.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1023.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1023.
-
+<use ASX_-_Machine_Learning_Phase_1_files/figure-latex/unnamed-chunk-9-1.pdf>
 [15]
 
-Package xcolor Warning: Incompatible color definition on input line 1023.
+Package xcolor Warning: Incompatible color definition on input line 1054.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1023.
+Package xcolor Warning: Incompatible color definition on input line 1082.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1076.
+Package xcolor Warning: Incompatible color definition on input line 1082.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1085.
+Package xcolor Warning: Incompatible color definition on input line 1082.
+
+[16]
+
+Package xcolor Warning: Incompatible color definition on input line 1082.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1085.
+Package xcolor Warning: Incompatible color definition on input line 1082.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1137.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1148.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1148.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1138.
+Package xcolor Warning: Incompatible color definition on input line 1203.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1153.
+Package xcolor Warning: Incompatible color definition on input line 1221.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1153.
+Package xcolor Warning: Incompatible color definition on input line 1221.
 
 
-Overfull \vbox (1.48605pt too high) detected at line 1153
- []
-
-
-Package xcolor Warning: Incompatible color definition on input line 1153.
-
-[16]
-
-Package xcolor Warning: Incompatible color definition on input line 1153.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1153.
-
-
-Overfull \hbox (8.13622pt too wide) in paragraph at lines 1157--1202
- [][] 
- []
-
-
-Package xcolor Warning: Incompatible color definition on input line 1211.
+Package xcolor Warning: Incompatible color definition on input line 1221.
 
 [17]
 
-Package xcolor Warning: Incompatible color definition on input line 1223.
+Package xcolor Warning: Incompatible color definition on input line 1221.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1223.
-
-File: ASX_-_Machine_Learning_Phase_1_files/figure-latex/unnamed-chunk-10-1.pdf 
-Graphic file (type pdf)
-<use ASX_-_Machine_Learning_Phase_1_files/figure-latex/unnamed-chunk-10-1.pdf>
-
-Package xcolor Warning: Incompatible color definition on input line 1237.
+Package xcolor Warning: Incompatible color definition on input line 1221.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1268.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1268.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1268.
+Package xcolor Warning: Incompatible color definition on input line 1283.
 
 [18]
 
-Package xcolor Warning: Incompatible color definition on input line 1268.
+Package xcolor Warning: Incompatible color definition on input line 1295.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1268.
+Package xcolor Warning: Incompatible color definition on input line 1295.
+
+File: ASX_-_Machine_Learning_Phase_1_files/figure-latex/unnamed-chunk-11-1.pdf 
+Graphic file (type pdf)
+<use ASX_-_Machine_Learning_Phase_1_files/figure-latex/unnamed-chunk-11-1.pdf>
+
+Package xcolor Warning: Incompatible color definition on input line 1309.
 
 [19]
 
-Package xcolor Warning: Incompatible color definition on input line 1320.
+Package xcolor Warning: Incompatible color definition on input line 1343.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1351.
+Package xcolor Warning: Incompatible color definition on input line 1343.
+
+[20]
+
+Package xcolor Warning: Incompatible color definition on input line 1398.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1351.
-
-File: ASX_-_Machine_Learning_Phase_1_files/figure-latex/unnamed-chunk-12-1.pdf 
-Graphic file (type pdf)
-<use ASX_-_Machine_Learning_Phase_1_files/figure-latex/unnamed-chunk-12-1.pdf>
-[20] [21]
-
-Package xcolor Warning: Incompatible color definition on input line 1366.
+Package xcolor Warning: Incompatible color definition on input line 1429.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1380.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1380.
+Package xcolor Warning: Incompatible color definition on input line 1429.
 
 File: ASX_-_Machine_Learning_Phase_1_files/figure-latex/unnamed-chunk-13-1.pdf 
 Graphic file (type pdf)
 <use ASX_-_Machine_Learning_Phase_1_files/figure-latex/unnamed-chunk-13-1.pdf>
-[22] [23]
+[21] [22]
 
-Package xcolor Warning: Incompatible color definition on input line 1396.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1450.
+Package xcolor Warning: Incompatible color definition on input line 1444.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1450.
+Package xcolor Warning: Incompatible color definition on input line 1458.
 
 
-Overfull \vbox (2.72224pt too high) detected at line 1450
- []
-
-
-Package xcolor Warning: Incompatible color definition on input line 1450.
-
-[24]
-
-Package xcolor Warning: Incompatible color definition on input line 1450.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1450.
+Package xcolor Warning: Incompatible color definition on input line 1458.
 
 File: ASX_-_Machine_Learning_Phase_1_files/figure-latex/unnamed-chunk-14-1.pdf 
 Graphic file (type pdf)
 <use ASX_-_Machine_Learning_Phase_1_files/figure-latex/unnamed-chunk-14-1.pdf>
+[23] [24]
+
+Package xcolor Warning: Incompatible color definition on input line 1474.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1528.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1528.
+
+
+Overfull \vbox (2.72224pt too high) detected at line 1528
+ []
+
+
+Package xcolor Warning: Incompatible color definition on input line 1528.
+
 [25]
 
-Package xcolor Warning: Incompatible color definition on input line 1462.
+Package xcolor Warning: Incompatible color definition on input line 1528.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1505.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1505.
+Package xcolor Warning: Incompatible color definition on input line 1528.
 
 File: ASX_-_Machine_Learning_Phase_1_files/figure-latex/unnamed-chunk-15-1.pdf 
 Graphic file (type pdf)
 <use ASX_-_Machine_Learning_Phase_1_files/figure-latex/unnamed-chunk-15-1.pdf>
-[26] [27]
+[26]
 
-Package xcolor Warning: Incompatible color definition on input line 1519.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1543.
+Package xcolor Warning: Incompatible color definition on input line 1540.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1543.
+Package xcolor Warning: Incompatible color definition on input line 1583.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1583.
 
 File: ASX_-_Machine_Learning_Phase_1_files/figure-latex/unnamed-chunk-16-1.pdf 
 Graphic file (type pdf)
 <use ASX_-_Machine_Learning_Phase_1_files/figure-latex/unnamed-chunk-16-1.pdf>
-[28] [29]
+[27] [28]
 
-Package xcolor Warning: Incompatible color definition on input line 1557.
-
-
-Package xcolor Warning: Incompatible color definition on input line 1591.
+Package xcolor Warning: Incompatible color definition on input line 1597.
 
 
-Package xcolor Warning: Incompatible color definition on input line 1591.
+Package xcolor Warning: Incompatible color definition on input line 1621.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1621.
 
 File: ASX_-_Machine_Learning_Phase_1_files/figure-latex/unnamed-chunk-17-1.pdf 
 Graphic file (type pdf)
 <use ASX_-_Machine_Learning_Phase_1_files/figure-latex/unnamed-chunk-17-1.pdf>
-[30] [31] [32]
-LaTeX Font Info:    Font shape `TU/ArialNova(0)/m/it' will be
-(Font)              scaled to size 9.98328pt on input line 1625.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1634.
-[33]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1634.
+[29] [30]
+
+Package xcolor Warning: Incompatible color definition on input line 1637.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1671.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1671.
+
+File: ASX_-_Machine_Learning_Phase_1_files/figure-latex/unnamed-chunk-18-1.pdf 
+Graphic file (type pdf)
+<use ASX_-_Machine_Learning_Phase_1_files/figure-latex/unnamed-chunk-18-1.pdf>
+[31] [32] [33]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1714.
+[34]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1714.
 (ASX_-_Machine_Learning_Phase_1.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1634.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1634.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1714.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1714.
 
 Package rerunfilecheck Info: File `ASX_-_Machine_Learning_Phase_1.out' has not 
 changed.
 (rerunfilecheck)             Checksum: E2A77971408F92FE393532BE11A6D330.
+
+LaTeX Warning: There were multiply-defined labels.
+
  ) 
 Here is how much of TeX's memory you used:
- 25557 strings out of 427748
- 459881 string characters out of 3143988
- 751091 words of memory out of 3000000
- 29318 multiletter control sequences out of 15000+200000
- 557271 words of font info for 79 fonts, out of 3000000 for 9000
+ 25564 strings out of 427748
+ 460102 string characters out of 3143988
+ 739746 words of memory out of 3000000
+ 29326 multiletter control sequences out of 15000+200000
+ 557255 words of font info for 77 fonts, out of 3000000 for 9000
  1328 hyphenation exceptions out of 8191
  48i,9n,116p,829b,446s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on ASX_-_Machine_Learning_Phase_1.pdf (33 pages).
+Output written on ASX_-_Machine_Learning_Phase_1.pdf (34 pages).

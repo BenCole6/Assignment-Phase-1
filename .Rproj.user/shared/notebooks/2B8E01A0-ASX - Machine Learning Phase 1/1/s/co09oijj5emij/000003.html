@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<script src="lib/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="lib/bootstrap-3.3.5/css/simplex.min.css" rel="stylesheet" />
+<script src="lib/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="lib/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="lib/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="lib/kePrint-0.0.1/kePrint.js"></script>
+
+</head>
+<body style="background-color:white;">
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Variable </td>
+   <td style="text-align:right;"> Close </td>
+   <td style="text-align:right;"> High </td>
+   <td style="text-align:right;"> Low </td>
+   <td style="text-align:right;"> Open </td>
+   <td style="text-align:right;"> Volume </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> n ASX_Tickers </td>
+   <td style="text-align:right;"> 2,048 </td>
+   <td style="text-align:right;"> 2,048 </td>
+   <td style="text-align:right;"> 2,048 </td>
+   <td style="text-align:right;"> 2,048 </td>
+   <td style="text-align:right;"> 2,048 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> n Observations </td>
+   <td style="text-align:right;"> 109,452 </td>
+   <td style="text-align:right;"> 109,452 </td>
+   <td style="text-align:right;"> 109,452 </td>
+   <td style="text-align:right;"> 109,452 </td>
+   <td style="text-align:right;"> 109,452 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Min Date </td>
+   <td style="text-align:right;"> 02-01-2019 </td>
+   <td style="text-align:right;"> 02-01-2019 </td>
+   <td style="text-align:right;"> 02-01-2019 </td>
+   <td style="text-align:right;"> 02-01-2019 </td>
+   <td style="text-align:right;"> 02-01-2019 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Max Date </td>
+   <td style="text-align:right;"> 12-04-2019 </td>
+   <td style="text-align:right;"> 12-04-2019 </td>
+   <td style="text-align:right;"> 12-04-2019 </td>
+   <td style="text-align:right;"> 12-04-2019 </td>
+   <td style="text-align:right;"> 12-04-2019 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Minimum </td>
+   <td style="text-align:right;"> 0.001 </td>
+   <td style="text-align:right;"> 0.001 </td>
+   <td style="text-align:right;"> 0.001 </td>
+   <td style="text-align:right;"> 0.001 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Q1 </td>
+   <td style="text-align:right;"> 0.062 </td>
+   <td style="text-align:right;"> 0.064 </td>
+   <td style="text-align:right;"> 0.061 </td>
+   <td style="text-align:right;"> 0.062 </td>
+   <td style="text-align:right;"> 32,000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Median </td>
+   <td style="text-align:right;"> 0.365 </td>
+   <td style="text-align:right;"> 0.37 </td>
+   <td style="text-align:right;"> 0.36 </td>
+   <td style="text-align:right;"> 0.365 </td>
+   <td style="text-align:right;"> 166,381 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Q3 </td>
+   <td style="text-align:right;"> 2.5 </td>
+   <td style="text-align:right;"> 2.53 </td>
+   <td style="text-align:right;"> 2.47 </td>
+   <td style="text-align:right;"> 2.5 </td>
+   <td style="text-align:right;"> 770,116 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 90th Percentile </td>
+   <td style="text-align:right;"> 13.49 </td>
+   <td style="text-align:right;"> 13.599 </td>
+   <td style="text-align:right;"> 13.35 </td>
+   <td style="text-align:right;"> 13.47 </td>
+   <td style="text-align:right;"> 2,621,474 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 95th Percentile </td>
+   <td style="text-align:right;"> 39.364 </td>
+   <td style="text-align:right;"> 39.842 </td>
+   <td style="text-align:right;"> 38.916 </td>
+   <td style="text-align:right;"> 39.295 </td>
+   <td style="text-align:right;"> 4,897,755 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Maximum </td>
+   <td style="text-align:right;"> 31,227.1 </td>
+   <td style="text-align:right;"> 31,376.8 </td>
+   <td style="text-align:right;"> 30,962.3 </td>
+   <td style="text-align:right;"> 31,227.1 </td>
+   <td style="text-align:right;"> 430,924,497 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Skew </td>
+   <td style="text-align:right;"> 17.065 </td>
+   <td style="text-align:right;"> 17.091 </td>
+   <td style="text-align:right;"> 17.053 </td>
+   <td style="text-align:right;"> 17.075 </td>
+   <td style="text-align:right;"> 33.523 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Kurtosis </td>
+   <td style="text-align:right;"> 392.572 </td>
+   <td style="text-align:right;"> 393.710 </td>
+   <td style="text-align:right;"> 392.098 </td>
+   <td style="text-align:right;"> 393.048 </td>
+   <td style="text-align:right;"> 2272.266 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> NA count </td>
+   <td style="text-align:right;"> 7,717 </td>
+   <td style="text-align:right;"> 7,717 </td>
+   <td style="text-align:right;"> 7,717 </td>
+   <td style="text-align:right;"> 7,717 </td>
+   <td style="text-align:right;"> 7,717 </td>
+  </tr>
+</tbody>
+</table>
+</body>
+</html>
