@@ -1,5 +1,7 @@
 ---
-title: "Closing Prices of Australian Stock Exchange Shares"
+title: "|
+        |Selling Prices and Volumes Sold
+        |of Australian Stock Exchange Shares"
 subtitle: |
           | MATH2319 - Machine Learning
           | Course Project
@@ -23,11 +25,13 @@ geometry: margin=15mm
 
 ## Outline
 
-The aim of this supervised machine learning project is to predict the volume of shares sold of a large number of Australian Stock Exchange (ASX) shares in the year 2019. This phase covers the collection, cleaning, and inspection of the data. Data beginning at the 2019 calendar year through to April 2019 was sourced to use in the training and validation data set. Data will be sourced for dates after the last date in the training and validation data set for following phases of this project.    
+The aim of this supervised machine learning project is to predict the volume of shares sold of a large number of Australian Stock Exchange (ASX) shares in the year 2019. This phase covers the collection, cleaning, and inspection of the data. Data beginning at the 2019 calendar year through to April 2019 was sourced to use in the training and validation dataset. Data will be sourced for dates after the last date in the training and validation dataset for the following Phase 2 of this project.    
 
-The dataset for the share prices was in a tidy and long format, with ASX ticker code, date, several price variables, and selling volume each in a separate column. A second data table was scraped from the internet that contained Global Industry Classification Standard industry groupings. This was joined to the first data set to add further categorical information.    
+The dataset for the share prices was in a tidy and long format, with ASX ticker code, date, several price variables, and selling volume each in a separate column. A second data table was scraped from the internet that contained Global Industry Classification Standard industry groupings. This was joined to the first dataset to add further categorical information.    
 
-The data was found to be heavily right-skewed for all price variables. The data was filtered to remove ASX tickers with extremely high prices and with extremely high sales volumes. After filtering, the data was visualised to show that it was less skewed for all continuous descriptive features. GICS Industry Group, the only categorical descriptive feature, was also shown to be less skewed after filtering as well as somewhat similarly distributed between GICS groups.
+Volume of shares sold was chosen as the target feature while pricing variables and GICS grouping were chosen as descriptive features. Date was not used as a descriptive feature but retained in the dataset for future use in Phase 2 of this project.    
+
+The data was found to be heavily right-skewed for all price variables. The data was filtered to remove ASX tickers with extremely large High selling prices and with extremely large sales volumes. After filtering, the data was visualised to show that it was less skewed for all continuous descriptive features. GICS Industry Group, the only categorical descriptive feature, was also shown to be less skewed after filtering as well as somewhat similarly distributed between GICS groups.
 
 ### Nature of the Data
 
@@ -43,7 +47,7 @@ The data used was historical summary data of all shares available with a trading
 * `Close` - price per individual share at the end of the day's trade
 * `Volume` - number of shares traded during the day
 
-The above variable names are stated on the ASX Historical Data website.
+The above variable names are stated on the l**ASX Historical Data website**](!"https://www.asxhistoricaldata.com/").
 
 #### Global Industry Classification Standards Data
 
@@ -75,7 +79,7 @@ Excepting `Date`[^1], All other remaining variables in the data frame were used 
 
 ### Packages
 
-The following packages were used, with brief descriptions of their uses as comments.  
+The following packages were used, with brief descriptions of their uses as comments.    
   
   
 ```{r, message=FALSE, warning=FALSE}
@@ -101,15 +105,20 @@ suppressMessages(p_load(character.only = T,
 
 ### Data - Price History
 
-The data was read making use of a nested for loop for the files that were separated by week. Just a single for loop was required for the data that was collated into the file January 2019.    
+The data was read making use of a nested for loop for the files that were separated by week. Just a single for loop was required for the data that was collated into the file January 2019.     
   
   
   
 ```{r, message=FALSE, warning=FALSE, tidy=TRUE}
 
-Jan_file <- list.files(pattern = "jan")
-
-unzip(Jan_file)
+if (length(list.files(pattern = "jan")[!str_detect(
+      list.files(pattern = "jan"),
+        ".zip")]) == 0) {
+  
+  Jan_file <- list.files(pattern = "jan")
+  
+  unzip(Jan_file)
+}
 
 Jan_File_no_zip <- list.files(pattern = "jan")[!str_detect(
   list.files(pattern = "jan"),
@@ -135,19 +144,26 @@ for (k in 1:length(list.files(Jan_File_no_zip))) {
   
 }
 
+Week_files <- list.files(pattern = "week")
+Zip_files <- list.files(pattern = ".zip")
 
-h <- 1
+Week_files_no_zip <- Week_files[!Week_files %in% Zip_files]
 
-repeat {
+if(length(Week_files_no_zip)==0) {
   
-  unzip(list.files(pattern = "week")[h])
+  h <- 1
   
-  h <- h+1
-  
-  if (h > length(list.files(pattern = "week"))) {
-    break
+  repeat {
+    
+    unzip(list.files(pattern = "week")[h])
+    
+    h <- h+1
+    
+    if (h > length(list.files(pattern = "week"))) {
+      break
+    }
+    
   }
-  
 }
 
 Week_files <- list.files(pattern = "week")
@@ -202,7 +218,7 @@ ASX_Data_Frame <- distinct(ASX_Data_Frame,
 
 ### Data - Global Industry Classification Standard
 
-The sales data of ASX shares were enriched by adding Global Industry Classification Standard  (GICS) information as well. A new table was scraped containing all companies listed on the ASX.  
+The sales data of ASX shares were enriched by adding Global Industry Classification Standard  (GICS) information. A new table was scraped containing all companies listed on the ASX.    
   
   
 ```{r, message=FALSE, warning=FALSE}
@@ -258,7 +274,7 @@ ASX_Data_Frame <- left_join(x = ASX_Data_Frame,
 
 ### Removing Company Name
 
-As each `ASX_ticker` is individually linked to a single `Company_name`, `Company_name` clearly does not provide any extra information to the data set and so was removed.    
+As each `ASX_ticker` is individually linked to a single `Company_name`, `Company_name` clearly does not provide any extra information to the dataset and so was removed.    
   
   
 ```{r}
@@ -275,7 +291,7 @@ kable_styling(kable(sample_n(ASX_Data_Frame, 20),
 
 ### Descriptive Statistics
 
-The data set was heavily right-skewed, as outlined by the summary table below of each pricing feature. However, all the price features (`Close`, `High`, `Low`, `Open`) appeared to have similar measures of skew, kurtosis, and IQR.  
+The dataset was heavily right-skewed, as outlined by the summary table below of each pricing feature. However, all the price features (`Close`, `High`, `Low`, `Open`) appeared to have similar measures of skew, kurtosis, and IQR.    
   
   
 ```{r, message=FALSE, warning=FALSE}
@@ -321,7 +337,7 @@ kable_styling(kable(t(ASX_Summary),
 
 ### Density Plots
 
-Plotting the spread of the features only further outlined the magnitude of the skew. As such, the data was filtered to remove shares that showed high values for any feature.  
+Plotting the spread of the features only further outlined the magnitude of the skew. As such, the data was filtered to remove shares that showed high values for any feature.    
   
   
 ```{r, fig.width=15, fig.height=10, message=FALSE, warning=FALSE}
@@ -340,7 +356,7 @@ ggplot(ASX_Long) +
 
 ### Filtering Data by Price
 
-As the data was extremely positively skewed, trimming out the top 1/3rd of the data allowed for concentration on the shares with similar prices. The data was trimmed by `ASX_Ticker` to remove shares that sold for `High` prices in the top 1/3 quantile at any date during the time considered. Summary statistics on the variables showed that this filtered data focussed on shares that sold for between \$0.02 and \$0.96 on any date.
+As the data was extremely positively skewed, trimming out the top 1/3 quantile of the data allowed for concentration on the shares with similar prices. The data was trimmed by `ASX_Ticker` to remove shares that sold for `High` prices in the top 1/3 quantile at any date during the time considered. Summary statistics on the variables showed that this filtered data focussed on shares that sold for between \$0.02 and \$0.96 on any date.    
   
   
 ```{r, message=FALSE, warning=FALSE}
@@ -393,7 +409,7 @@ kable_styling(kable(sample_n(ASX_Data_Lower, 20),
 
 \newpage
 
-Univariate density plots of the spread of the data after filtering still showed that the pricing features were skewed, albeit much less. The spread of data for `Volume` was still highly skewed, and so the same method for filtering the pricing features also needed to be applied to `Volume`.  
+Univariate density plots of the spread of the data after filtering still showed that the pricing features were skewed, albeit much less. The spread of data for `Volume` was still highly skewed, and so the same method for filtering the pricing features also needed to be applied to `Volume`.    
   
   
 ```{r, fig.width=15, fig.height=10, message=FALSE, warning=FALSE}
@@ -413,7 +429,7 @@ ggplot(ASX_Long_Lower) +
 
 ### Filtering Data by Volume
 
-The data was filtered by `ASX_Ticker` to remove the top 1/3 quantile of `Volume`.  
+The data was filtered by `ASX_Ticker` to remove the top 1/3 quantile of `Volume`.    
   
   
 ```{r, message=FALSE, warning=FALSE}
@@ -467,7 +483,7 @@ kable_styling(kable(sample_n(ASX_Data_Lower, 20),
   
 ### Density Plots After Filtering by Price and Volume
 
-After removing extreme values in the `High` and `Volume` feature, univariate density plots were still right skewed but much less extreme.  
+After removing extreme values in the `High` and `Volume` feature, univariate density plots were still right skewed but much less extreme.    
   
   
 ```{r, fig.width=15, fig.height=10, message=FALSE, warning=FALSE}
@@ -486,7 +502,7 @@ ggplot(ASX_Long_Lower) +
 
 ### Summary Statistics of Data After Removing Extreme ASX_Tickers
 
-After filtering by Price (`High`) and `Volume`, each of the price features were much less skewed; all below 1.0. `Volume` was still somewhat skewed, but further filtering the data based on this feature might risk the accuracy of the model in Phase 2. The skew for `Volume` before filtering was 33.523, whereas after filtering is 2.658.
+After filtering by price (`High`) and `Volume`, each of the price features were much less skewed; all below 1.0. `Volume` was still somewhat skewed, but further filtering the data based on this feature might risk the accuracy of the model in Phase 2. The skew for `Volume` before filtering was 33.523, whereas after filtering was 2.658.    
 
 ```{r, message=FALSE, warning=FALSE}
 
@@ -527,7 +543,7 @@ kable_styling(kable(t(ASX_Summary_Lower),
 
 ### Share Price Tracking
 
-The visualisations below of share prices for 21 randomly[^2] selected stocks did not reveal any consistent trends or abnormalities. Each of the below stocks appeared to resemble normal pricing behaviour for share prices. All four pricing variables (`Open`, `Low`, `High`, `Close`) all appear to be very highly correlated, but with an estimated correlation of $r\neq 1$.  
+The visualisations below of share prices for 21 randomly[^2] selected stocks did not reveal any consistent trends or abnormalities. Each of the below stocks appeared to resemble normal pricing behaviour for share prices. All four pricing variables (`Open`, `Low`, `High`, `Close`) all appeared to be very highly correlated, but with an estimated correlation of $r\neq 1$.    
   
   
 ```{r, fig.width=12, fig.height=15, message=FALSE, warning=FALSE}
@@ -568,7 +584,7 @@ ggplot(ASX_Data_Samples) +
 \newpage
 ### Volume of Shares Sold
 
-The below visualisation of the volume of stocks sold from same 21 shares was quite different to the  price features. The volumes of stocks sold appeared to be highly variable and erratic, with large spikes breaking up long periods of low selling days to weeks. This seems to suggest that the buying and selling nature of stocks does not have a strong correlation with any of the pricing variables.  
+The below visualisation of the volume of stocks sold from same 21 shares was quite different to the  price features. The volumes of stocks sold appeared to be highly variable and erratic, with large spikes breaking up long periods of low selling days to weeks. This seems to suggest that the buying and selling nature of stocks does not have a strong correlation with any of the pricing variables.    
   
   
 ```{r, fig.width=12, fig.height=15, message=FALSE, warning=FALSE}
@@ -590,7 +606,7 @@ ggplot(ASX_Data_Samples) +
 \newpage
 ### Number of Companies per GICS Group
 
-The `Materials` industry group was the most frequently occurring GICS grouping in the data set with 4,370 different `ASX_Ticker`s. This was nearly four-times the size of the second-most frequently occurring GICS grouping; `Pharmaceuticals, Biotechnology & Life Sciences` with 1,091 different `ASX_Ticker`s.
+The `Materials` industry group was the most frequently occurring GICS grouping in the dataset with 4,370 different `ASX_Ticker`s. This was nearly four-times the size of the second-most frequently occurring GICS grouping; `Pharmaceuticals, Biotechnology & Life Sciences` with 1,091 different `ASX_Ticker`s.    
   
   
 ```{r, fig.width=12, fig.height=12, message=FALSE, warning=FALSE}
@@ -632,7 +648,7 @@ ggplot(ASX_Data_Lower, aes(x = fct_rev(fct_infreq(GICS_industry_group)),
             hjust = 1.25, col="white") +
   ggtitle("Frequencies of each GICS Industry Type") +
   scale_y_continuous(breaks = seq(0, max(ASX_Data_Count$Count)*1.075,
-                                  by = 2500),
+                                  by = 500),
                      limits = c(0, max(ASX_Data_Count$Count)*1.075),
                      expand = c(0,0),
                      labels = comma,
@@ -652,7 +668,7 @@ ggplot(ASX_Data_Lower, aes(x = fct_rev(fct_infreq(GICS_industry_group)),
 \newpage
 ### Mean Volumes Sold by GICS Groups
 
-The below plot shows that, after some filtering, the mean volume of shares sold is very similar between GICS industry groups.  
+The below plot shows that, after some filtering, the mean volume of shares sold is very similar between GICS industry groups.    
   
   
 ```{r, fig.width=12, fig.height=10, message=FALSE, warning=FALSE}
@@ -703,7 +719,7 @@ ggplot(ASX_Lower_Vol) +
 \newpage
 ### Volumes Sold of each GICS per Day
 
-To further explore the spread of the data, the volumes sold of shares within each GICS was visualised as boxplots for the total time period in the data set. These boxplots below showed that, despite the data set being right-skewed, that the skew is present across most GICS groups.    
+To further explore the spread of the data, the volumes sold of shares within each GICS was visualised as boxplots for the total time period in the dataset. These boxplots below showed that, despite the dataset being right-skewed, that the skew is present across most GICS groups.    
 
 ```{r, fig.width=12, fig.height=15, message=FALSE, warning=FALSE}
 
@@ -734,7 +750,7 @@ ggplot(ASX_Data_Lower) +
 
 ### Pricing Features for Each GICS Group
 
-Boxplots were generated for each Pricing Feature for each GICS group. Just like with the boxplots for `Volume` above, this visualisation showed the spread of each of the Pricing descriptive features over the total time period collected. Unlike the `Volume` boxplots above, the Pricing features showed less skew within GICS group and less similarity between groups.
+Boxplots were generated for each Pricing Feature for each GICS group. Just like with the boxplots for `Volume` above, this visualisation showed the spread of each of the Pricing descriptive features over the total time period collected. Unlike the `Volume` boxplots above, the Pricing features showed less skew within GICS group and less similarity between groups.    
 
 ```{r, fig.width=12, fig.height=15.5, message=FALSE, warning=FALSE}
 
@@ -776,13 +792,20 @@ ggplot(filter(ASX_Long_Lower, Variable != "Volume")) +
 ## Summary
 
 After compiling the data, it was observed to be heavily skewed for all continuous descriptive features. Price and Volume features were used to filter ASX Tickers to remove extreme values that were causing the right-skew. The dataset remaining was still right-skewed, but to a much lesser extent.  
-GICS Industry Group was added to the data set, which included a descriptive feature `Company_name`. Company name was deemed to provide no information gain as each `ASX_Ticker` was linked to a unique Company name, and so Company Name was removed.  
+GICS Industry Group was added to the dataset, which included a descriptive feature `Company_name`. Company name was deemed to provide no information gain as each `ASX_Ticker` was linked to a unique Company name, and so Company Name was removed.  
 Several visualisations, both univariate and multivariate, were produced that explored the nature of the data. Univariate density plots were produced to show the spread of the descriptive features before and after filtering extreme values. Time series line plots were also produced to investigate the behaviour of pricing features and the sales volume feature. GICS was also explored by frequency of each group and mean volume sold per group. The spread of the data was also explored by GICS group for all continuous descriptive features and for the target feature Volume.
 
 \newpage
 ### References
 
-1. *ASX Historical Data*, ASXHistoricalData.com, viewed 19 April 2019,  <https://www.asxhistoricaldata.com/>
+1. *ASX Historical Data*, ASXHistoricalData.com, viewed 19 April 2019,  \<https://www.asxhistoricaldata.com>
 
-2. Australian Securities Exchange (ASX), *GICS*, viewed 22 April, 2019, <https://www.asx.com.au/products/gics.htm>
+2. Australian Securities Exchange (ASX), *GICS*, viewed 22 April, 2019, \<https://www.asx.com.au/products/gics.htm>
 
+
+```{r message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
+
+library(beepr)
+beep(2)
+
+```
